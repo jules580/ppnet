@@ -1,0 +1,27 @@
+{
+    "name": "PPnet",
+    "version": "2.3.0",
+    "database": [
+        {
+            "displayName" : "test3",
+            "name": "test",
+            "remote": "http://0.0.0.0:5983/"
+        }
+    ]
+    ,
+    "mapview": {
+        "defaultLatitude": "48.934483",
+        "defaultLongitude": "-1.952426",
+        "defaultZoom": "10",
+        "mapid": "tobiasrotter.je28c1b0",
+        "accesstoken": "pk.eyJ1IjoidG9iaWFzcm90dGVyIiwiYSI6Imw1SlZIRWsifQ.uJ8yi7o4YKFAuFDgSVcCTw"
+    },
+    "login": {
+        "fingerprintjs": true,
+        "simplelogin": true,
+        "hellojs": {
+            "fiware": true,
+            "facebook": true
+        }
+    }
+}
