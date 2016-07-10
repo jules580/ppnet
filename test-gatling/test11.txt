@@ -1,0 +1,4 @@
+> response time 50th percentile                          4 (OK=5      KO=3     )
+> response time 75th percentile                         19 (OK=19     KO=4     )
+> response time 95th percentile                         23 (OK=23     KO=6     )
+> response time 99th percentile                         43 (OK=44     KO=7     )

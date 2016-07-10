@@ -1,0 +1,2 @@
+> request count                                        100 (OK=90     KO=10    )
+For all requests: count of failed requests is less than 5 : false

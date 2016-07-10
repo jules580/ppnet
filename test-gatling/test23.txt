@@ -1,0 +1,176 @@
+this is a script
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2
+Simulation about login will begin
+Simulation default4.RecordedSimulatelogin started...
+
+================================================================================
+2016-07-08 12:11:32                                           5s elapsed
+---- Admins --------------------------------------------------------------------
+[------------------------------                                            ]  0%
+          waiting: 6      / active: 4      / done:0     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=9      KO=0     )
+> Init                                                     (OK=2      KO=0     )
+> Acces api                                                (OK=1      KO=0     )
+> Access sync                                              (OK=1      KO=0     )
+> presence                                                 (OK=1      KO=0     )
+> turnServer                                               (OK=1      KO=0     )
+> Login page                                               (OK=1      KO=0     )
+> list event                                               (OK=1      KO=0     )
+> logo picture                                             (OK=1      KO=0     )
+================================================================================
+
+
+================================================================================
+2016-07-08 12:11:37                                          10s elapsed
+---- Admins --------------------------------------------------------------------
+[-------------------------------------------------------------------       ]  0%
+          waiting: 1      / active: 9      / done:0     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=43     KO=0     )
+> Init                                                     (OK=6      KO=0     )
+> Acces api                                                (OK=4      KO=0     )
+> Access sync                                              (OK=4      KO=0     )
+> presence                                                 (OK=4      KO=0     )
+> turnServer                                               (OK=4      KO=0     )
+> Login page                                               (OK=4      KO=0     )
+> list event                                               (OK=4      KO=0     )
+> logo picture                                             (OK=3      KO=0     )
+> event                                                    (OK=3      KO=0     )
+> login                                                    (OK=1      KO=0     )
+> Home user                                                (OK=1      KO=0     )
+> Logo-small                                               (OK=1      KO=0     )
+> TurnServer Access                                        (OK=1      KO=0     )
+> DisplayName                                              (OK=1      KO=0     )
+> Get public Room                                          (OK=1      KO=0     )
+> profile info                                             (OK=1      KO=0     )
+================================================================================
+
+testSession(Admins,1,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@51591d34, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@737c4706, invite -> @test09:matrix.allmende.io, indice -> 12, responseTime -> 4, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test09, password -> test09),1467972688255,0,OK,List(),<function1>)
+
+================================================================================
+2016-07-08 12:11:42                                          15s elapsed
+---- Admins --------------------------------------------------------------------
+[#######-------------------------------------------------------------------] 10%
+          waiting: 0      / active: 9      / done:1     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=93     KO=0     )
+> Init                                                     (OK=10     KO=0     )
+> Acces api                                                (OK=9      KO=0     )
+> Access sync                                              (OK=9      KO=0     )
+> presence                                                 (OK=9      KO=0     )
+> turnServer                                               (OK=9      KO=0     )
+> Login page                                               (OK=9      KO=0     )
+> list event                                               (OK=8      KO=0     )
+> logo picture                                             (OK=6      KO=0     )
+> event                                                    (OK=6      KO=0     )
+> login                                                    (OK=4      KO=0     )
+> Home user                                                (OK=2      KO=0     )
+> Logo-small                                               (OK=2      KO=0     )
+> TurnServer Access                                        (OK=2      KO=0     )
+> DisplayName                                              (OK=2      KO=0     )
+> Get public Room                                          (OK=2      KO=0     )
+> profile info                                             (OK=2      KO=0     )
+> Info recent event                                        (OK=1      KO=0     )
+> Close picture                                            (OK=1      KO=0     )
+================================================================================
+
+testSession(Admins,2,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@7639f1b5, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@78fe0102, invite -> @test02:matrix.allmende.io, indice -> 5, responseTime -> 246, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test02, password -> test02),1467972689297,0,OK,List(),<function1>)
+testSession(Admins,3,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@25b1af03, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@4ffdfccb, invite -> @test07:matrix.allmende.io, indice -> 10, responseTime -> 223, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test07, password -> test07),1467972690296,0,OK,List(),<function1>)
+testSession(Admins,4,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@759552f0, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@33a1267, invite -> @test02:matrix.allmende.io, indice -> 5, responseTime -> 271, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test02, password -> test02),1467972691267,0,OK,List(),<function1>)
+
+================================================================================
+2016-07-08 12:11:47                                          20s elapsed
+---- Admins --------------------------------------------------------------------
+[#############################---------------------------------------------] 40%
+          waiting: 0      / active: 6      / done:4     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=142    KO=0     )
+> Init                                                     (OK=10     KO=0     )
+> Acces api                                                (OK=10     KO=0     )
+> Access sync                                              (OK=10     KO=0     )
+> presence                                                 (OK=10     KO=0     )
+> turnServer                                               (OK=10     KO=0     )
+> Login page                                               (OK=10     KO=0     )
+> list event                                               (OK=10     KO=0     )
+> logo picture                                             (OK=10     KO=0     )
+> event                                                    (OK=10     KO=0     )
+> login                                                    (OK=8      KO=0     )
+> Home user                                                (OK=6      KO=0     )
+> Logo-small                                               (OK=6      KO=0     )
+> TurnServer Access                                        (OK=6      KO=0     )
+> DisplayName                                              (OK=6      KO=0     )
+> Get public Room                                          (OK=6      KO=0     )
+> profile info                                             (OK=6      KO=0     )
+> Info recent event                                        (OK=4      KO=0     )
+> Close picture                                            (OK=4      KO=0     )
+================================================================================
+
+testSession(Admins,5,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@47b9f08b, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@497e160c, invite -> @tesre:matrix.allmende.io, indice -> 2, responseTime -> 291, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> testre, password -> testre),1467972692267,0,OK,List(),<function1>)
+testSession(Admins,6,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@150e7cc1, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@1bc99010, invite -> @test01:matrix.allmende.io, indice -> 4, responseTime -> 91, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test01, password -> test01),1467972693267,0,OK,List(),<function1>)
+testSession(Admins,7,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@353c2b4c, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@1a08e381, invite -> @test09:matrix.allmende.io, indice -> 12, responseTime -> 2, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test09, password -> test09),1467972694267,0,OK,List(),<function1>)
+testSession(Admins,8,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@17f73f03, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@1b6105c6, invite -> @test14:matrix.allmende.io, indice -> 17, responseTime -> 9, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test14, password -> test14),1467972695267,0,OK,List(),<function1>)
+testSession(Admins,9,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@1ff617b1, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@5af49a2b, invite -> @test06:matrix.allmende.io, indice -> 9, responseTime -> 2, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test06, password -> test06),1467972696266,0,OK,List(),<function1>)
+testSession(Admins,10,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@28692475, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@4d61ce88, invite -> @test456:matrix.allmende.io, indice -> 3, responseTime -> 2, ccurrentLocation -> http://0.0.0.0:3030/_matrix/client/app/recents/recents.html, Https -> 0, login -> test456, password -> test456),1467972697267,0,OK,List(),<function1>)
+
+================================================================================
+2016-07-08 12:11:50                                          23s elapsed
+---- Admins --------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done:10    
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=180    KO=0     )
+> Init                                                     (OK=10     KO=0     )
+> Acces api                                                (OK=10     KO=0     )
+> Access sync                                              (OK=10     KO=0     )
+> presence                                                 (OK=10     KO=0     )
+> turnServer                                               (OK=10     KO=0     )
+> Login page                                               (OK=10     KO=0     )
+> list event                                               (OK=10     KO=0     )
+> logo picture                                             (OK=10     KO=0     )
+> event                                                    (OK=10     KO=0     )
+> login                                                    (OK=10     KO=0     )
+> Home user                                                (OK=10     KO=0     )
+> Logo-small                                               (OK=10     KO=0     )
+> TurnServer Access                                        (OK=10     KO=0     )
+> DisplayName                                              (OK=10     KO=0     )
+> Get public Room                                          (OK=10     KO=0     )
+> profile info                                             (OK=10     KO=0     )
+> Info recent event                                        (OK=10     KO=0     )
+> Close picture                                            (OK=10     KO=0     )
+================================================================================
+
+Simulation default4.RecordedSimulatelogin completed in 22 seconds
+Simulation about login is finished
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        180 (OK=180    KO=0     )
+> min response time                                      1 (OK=1      KO=-     )
+> max response time                                    758 (OK=758    KO=-     )
+> mean response time                                    78 (OK=78     KO=-     )
+> std deviation                                        126 (OK=126    KO=-     )
+> response time 50th percentile                         11 (OK=11     KO=-     )
+> response time 75th percentile                        127 (OK=127    KO=-     )
+> response time 95th percentile                        353 (OK=353    KO=-     )
+> response time 99th percentile                        473 (OK=473    KO=-     )
+> mean requests/sec                                  7.826 (OK=7.826  KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 800 ms                                           180 (100%)
+> 800 ms < t < 1200 ms                                   0 (  0%)
+> t > 1200 ms                                            0 (  0%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/results/recordedsimulatelogin-1467972686988/index.html
+Global: max of response time is less than 50 : false
+For all requests: count of failed requests is less than 5 : true
+Could not find stats matching assertion path List(Login) : false
+this is an other script
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2
+this is another script
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2

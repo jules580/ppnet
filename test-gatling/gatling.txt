@@ -1,0 +1,96 @@
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2
+18:29:59.434 [ERROR] i.g.c.ZincCompiler$ - /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/user-files/simulations/default4/Record.scala:1: '{' expected but 'import' found.
+18:29:59.437 [ERROR] i.g.c.ZincCompiler$ - package default4 import scala.concurrent.duration._ import io.gatling.core.Predef._ import io.gatling.http.Predef._ import io.gatling.jdbc.Predef._ class RecordedSimulateloginFalse extends Simulation { println("Simulation about login will begin") val httpProtocol = http .inferHtmlResources(WhiteList(), BlackList()) .acceptHeader("application/json, text/plain, */*") .userAgentHeader("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/50.0.2661.102 Chrome/50.0.2661.102 Safari/537.36") val headers_0 = Map( "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "If-Modified-Since" -> "Fri, 11 Sep 2015 18:01:31 GMT", "Upgrade-Insecure-Requests" -> "1") val headers_1 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive") val headers_3 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "Content-Type" -> "application/json;charset=UTF-8", "Origin" -> "http://0.0.0.0:3030") val headers_5 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "If-Modified-Since" -> "Fri, 11 Sep 2015 18:01:31 GMT") val headers_7 = Map( "Accept" -> "image/webp,image/*,*/*;q=0.8", "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "If-Modified-Since" -> "Fri, 11 Sep 2015 18:01:31 GMT") val headers_9 = Map( "Accept-Encoding" -> "gzip, deflate", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Connection" -> "keep-alive", "Content-Type" -> "application/json;charset=UTF-8", "Origin" -> "http://0.0.0.0:3030") val headers_11 = Map( "Accept" -> "image/webp,image/*,*/*;q=0.8", "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Connection" -> "keep-alive") val headers_12 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Connection" -> "keep-alive") val uri1 = "http://0.0.0.0:3030/_matrix/client" object Index{ val index=exec(http("Init") .resources(http("Acces api") http("Access sync") http("presence") http("turnServer") http("Login page") http("list event") http("logo picture") http("event") object Login{ val feeder =csv("login.csv").random val login= exec(feed(feeder)) .headers(headers_9) .resources(http("Home user") http("Logo-small") http("TurnServer Access") http("DisplayName") http("Get public Room") http("profile info") http("Info recent event") http("Close picture") .exec(session => { println("Simulation about login is finished") val admins=scenario("Admins").exec(Index.index,Login.login) rampUsers(10) over (10 seconds)) .throttle(reachRps(10) in (10 seconds), holdFor(15 seconds),jumpToRps(50),holdFor(10 seconds)))
+18:29:59.438 [ERROR] i.g.c.ZincCompiler$ -                  ^
+18:29:59.445 [ERROR] i.g.c.ZincCompiler$ - /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/user-files/simulations/default4/Record.scala:1: '}' expected but eof found.
+18:29:59.445 [ERROR] i.g.c.ZincCompiler$ - package default4 import scala.concurrent.duration._ import io.gatling.core.Predef._ import io.gatling.http.Predef._ import io.gatling.jdbc.Predef._ class RecordedSimulateloginFalse extends Simulation { println("Simulation about login will begin") val httpProtocol = http .inferHtmlResources(WhiteList(), BlackList()) .acceptHeader("application/json, text/plain, */*") .userAgentHeader("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/50.0.2661.102 Chrome/50.0.2661.102 Safari/537.36") val headers_0 = Map( "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "If-Modified-Since" -> "Fri, 11 Sep 2015 18:01:31 GMT", "Upgrade-Insecure-Requests" -> "1") val headers_1 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive") val headers_3 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "Content-Type" -> "application/json;charset=UTF-8", "Origin" -> "http://0.0.0.0:3030") val headers_5 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "If-Modified-Since" -> "Fri, 11 Sep 2015 18:01:31 GMT") val headers_7 = Map( "Accept" -> "image/webp,image/*,*/*;q=0.8", "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Cache-Control" -> "max-age=0", "Connection" -> "keep-alive", "If-Modified-Since" -> "Fri, 11 Sep 2015 18:01:31 GMT") val headers_9 = Map( "Accept-Encoding" -> "gzip, deflate", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Connection" -> "keep-alive", "Content-Type" -> "application/json;charset=UTF-8", "Origin" -> "http://0.0.0.0:3030") val headers_11 = Map( "Accept" -> "image/webp,image/*,*/*;q=0.8", "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Connection" -> "keep-alive") val headers_12 = Map( "Accept-Encoding" -> "gzip, deflate, sdch", "Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4", "Connection" -> "keep-alive") val uri1 = "http://0.0.0.0:3030/_matrix/client" object Index{ val index=exec(http("Init") .resources(http("Acces api") http("Access sync") http("presence") http("turnServer") http("Login page") http("list event") http("logo picture") http("event") object Login{ val feeder =csv("login.csv").random val login= exec(feed(feeder)) .headers(headers_9) .resources(http("Home user") http("Logo-small") http("TurnServer Access") http("DisplayName") http("Get public Room") http("profile info") http("Info recent event") http("Close picture") .exec(session => { println("Simulation about login is finished") val admins=scenario("Admins").exec(Index.index,Login.login) rampUsers(10) over (10 seconds)) .throttle(reachRps(10) in (10 seconds), holdFor(15 seconds),jumpToRps(50),holdFor(10 seconds)))
+18:29:59.445 [ERROR] i.g.c.ZincCompiler$ -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ^
+18:29:59.523 [ERROR] i.g.c.ZincCompiler$ - two errors found
+18:29:59.527 [ERROR] i.g.c.ZincCompiler$ - Compilation crashed
+sbt.compiler.CompileFailed: null
+	at sbt.compiler.AnalyzingCompiler.call(AnalyzingCompiler.scala:105)
+	at sbt.compiler.AnalyzingCompiler.compile(AnalyzingCompiler.scala:47)
+	at sbt.compiler.AnalyzingCompiler.compile(AnalyzingCompiler.scala:41)
+	at sbt.compiler.AggressiveCompile$$anonfun$3$$anonfun$compileScala$1$1.apply$mcV$sp(AggressiveCompile.scala:95)
+	at sbt.compiler.AggressiveCompile$$anonfun$3$$anonfun$compileScala$1$1.apply(AggressiveCompile.scala:95)
+	at sbt.compiler.AggressiveCompile$$anonfun$3$$anonfun$compileScala$1$1.apply(AggressiveCompile.scala:95)
+	at sbt.compiler.AggressiveCompile.sbt$compiler$AggressiveCompile$$timed(AggressiveCompile.scala:168)
+	at sbt.compiler.AggressiveCompile$$anonfun$3.compileScala$1(AggressiveCompile.scala:94)
+	at sbt.compiler.AggressiveCompile$$anonfun$3.apply(AggressiveCompile.scala:142)
+	at sbt.compiler.AggressiveCompile$$anonfun$3.apply(AggressiveCompile.scala:84)
+	at sbt.inc.IncrementalCompile$$anonfun$doCompile$1.apply(Compile.scala:66)
+	at sbt.inc.IncrementalCompile$$anonfun$doCompile$1.apply(Compile.scala:64)
+	at sbt.inc.IncrementalCommon.cycle(IncrementalCommon.scala:31)
+	at sbt.inc.Incremental$$anonfun$1.apply(Incremental.scala:62)
+	at sbt.inc.Incremental$$anonfun$1.apply(Incremental.scala:61)
+	at sbt.inc.Incremental$.manageClassfiles(Incremental.scala:89)
+	at sbt.inc.Incremental$.compile(Incremental.scala:61)
+	at sbt.inc.IncrementalCompile$.apply(Compile.scala:54)
+	at sbt.compiler.AggressiveCompile.compile2(AggressiveCompile.scala:159)
+	at sbt.compiler.AggressiveCompile.compile1(AggressiveCompile.scala:68)
+	at com.typesafe.zinc.Compiler.compile(Compiler.scala:201)
+	at com.typesafe.zinc.Compiler.compile(Compiler.scala:183)
+	at com.typesafe.zinc.Compiler.compile(Compiler.scala:174)
+	at com.typesafe.zinc.Compiler.compile(Compiler.scala:165)
+	at io.gatling.compiler.ZincCompiler$$anonfun$7.apply(ZincCompiler.scala:154)
+	at io.gatling.compiler.ZincCompiler$$anonfun$7.apply(ZincCompiler.scala:154)
+	at scala.util.Try$.apply(Try.scala:161)
+	at io.gatling.compiler.ZincCompiler$delayedInit$body.apply(ZincCompiler.scala:154)
+	at scala.Function0$class.apply$mcV$sp(Function0.scala:40)
+	at scala.runtime.AbstractFunction0.apply$mcV$sp(AbstractFunction0.scala:12)
+	at scala.App$$anonfun$main$1.apply(App.scala:71)
+	at scala.App$$anonfun$main$1.apply(App.scala:71)
+	at scala.collection.immutable.List.foreach(List.scala:318)
+	at scala.collection.generic.TraversableForwarder$class.foreach(TraversableForwarder.scala:32)
+	at scala.App$class.main(App.scala:71)
+	at io.gatling.compiler.ZincCompiler$.main(ZincCompiler.scala:36)
+	at io.gatling.compiler.ZincCompiler.main(ZincCompiler.scala)
+Choose a simulation number:
+     [0] RecordedSimulationlast23
+     [1] computepackage.computesale
+     [2] computepackage.computesale11
+     [3] computepackage.computesale12
+     [4] computepackage.computesale13
+     [5] computepackage.computesale14
+     [6] computepackage.computesale15
+     [7] computepackage.computesale2
+     [8] computepackage.computesale23
+     [9] computepackage.computesale3
+     [10] computepackage.computesale4
+     [11] computepackage.computesale5
+     [12] computepackage.computesale6
+     [13] computepackage.computesale7
+     [14] computepackage.computesale8
+     [15] computepackage.computesale9
+     [16] computerdatabase.BasicSimulation
+     [17] computerdatabase.advanced.AdvancedSimulationStep01
+     [18] computerdatabase.advanced.AdvancedSimulationStep02
+     [19] computerdatabase.advanced.AdvancedSimulationStep03
+     [20] computerdatabase.advanced.AdvancedSimulationStep04
+     [21] computerdatabase.advanced.AdvancedSimulationStep05
+     [22] computesale16
+     [23] computesale17
+     [24] computesale18
+     [25] computesale19
+     [26] computesale20
+     [27] computesale21
+     [28] default.RecordedSimulationh2g2
+     [29] default.RecordedSimulationhgg
+     [30] default2.RecordedSimula
+     [31] default4.RecordedSimulate
+     [32] default4.RecordedSimulatePrivate
+     [33] default4.RecordedSimulatePrivateImages
+     [34] default4.RecordedSimulatecompte
+     [35] default4.RecordedSimulatecreate
+     [36] default4.RecordedSimulatecreatesend
+     [37] default4.RecordedSimulatecreatetacht
+     [38] default4.RecordedSimulatecreatetchat
+     [39] default4.RecordedSimulatehello
+     [40] default4.RecordedSimulateimagesprivate
+     [41] default4.RecordedSimulatelink
+     [42] default4.RecordedSimulatelogin
+     [43] default4.RecordedSimulatepictures
+     [44] default4.RecordedSimulatepublicHelloPrivate2
+     [45] default4.RecordedSimulatepublicroom
+     [46] default4.RecordedSimulatepublicroomtrue
+     [47] io.gatling.funspec.example.GatlingFunSpecExample

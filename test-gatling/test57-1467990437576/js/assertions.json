@@ -1,0 +1,36 @@
+{
+  "simulation": "default4.RecordedSimulateloginFalse",
+  "simulationId": "test57",
+  "start": 1467990437576,
+  "description": "",
+  "scenarios": ["Admins"],
+  "assertions": [
+{
+  "path": "Global",
+  "target": "max of response time",
+  "condition": "is less than",
+  "conditionValues": [50],
+  "result": false,
+  "message": "Global: max of response time is less than 50",
+  "values": [215]
+},
+{
+  "path": "For all requests",
+  "target": "count of failed requests",
+  "condition": "is less than",
+  "conditionValues": [5],
+  "result": false,
+  "message": "For all requests: count of failed requests is less than 5",
+  "values": [0,0,0,0,0,0,0,0,0,10]
+},
+{
+  "path": "Login",
+  "target": "percentage of successful requests",
+  "condition": "is greater than",
+  "conditionValues": [90],
+  "result": false,
+  "message": "Could not find stats matching assertion path List(Login)",
+  "values": []
+}
+  ]
+}

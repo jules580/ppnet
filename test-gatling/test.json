@@ -1,0 +1,175 @@
+this is a script
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2
+Simulation is about to start!
+Simulation computesale20 started...
+test:Session(Admins,1,Map(test -> 3, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@5c2aabed, m -> 0, searchComputerName -> , searchCriterion -> , Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=, status -> 200, computerURL -> /),1467971640342,79,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test:Session(Admins,2,Map(test -> 2, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@c759f1f, m -> 0, searchComputerName -> ASUS Eee PC 1005PE, searchCriterion -> eee, Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=eee, status -> 200, computerURL -> /computers/525),1467971640936,33,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test:Session(Admins,3,Map(test -> 2, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@3e40798c, m -> 0, searchComputerName -> ASUS Eee PC 1005PE, searchCriterion -> eee, Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=eee, status -> 200, computerURL -> /computers/525),1467971641435,21,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test
+test2
+test:Session(Admins,4,Map(test -> 3, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@2070ac4d, m -> 0, searchComputerName -> , searchCriterion -> , Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=, status -> 200, computerURL -> /),1467971641935,21,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test3
+test4
+test:Session(Admins,5,Map(test -> 3, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@1987b423, m -> 0, searchComputerName -> , searchCriterion -> , Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=, status -> 200, computerURL -> /),1467971642346,19,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test
+test2
+test:Session(Admins,6,Map(test -> 1, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@3e34c1c8, m -> 0, searchComputerName -> Amstrad CPC, searchCriterion -> Amstrad, Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=Amstrad, status -> 200, computerURL -> /computers/411),1467971642855,23,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+
+================================================================================
+2016-07-08 11:54:04                                           5s elapsed
+---- Admins --------------------------------------------------------------------
+[-------------------------------------------------------------------       ]  0%
+          waiting: 1      / active: 9      / done:0     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=37     KO=0     )
+> Home                                                     (OK=9      KO=0     )
+> Home Redirect 1                                          (OK=9      KO=0     )
+> Search                                                   (OK=3      KO=0     )
+> Select                                                   (OK=6      KO=0     )
+> Select Redirect 1                                        (OK=3      KO=0     )
+> Search ASUS Eee PC 1005PE                                (OK=2      KO=0     )
+> Page 0                                                   (OK=3      KO=0     )
+> Search Amstrad CPC                                       (OK=1      KO=0     )
+> Page 1                                                   (OK=1      KO=0     )
+================================================================================
+
+test3
+test4
+test:Session(Admins,7,Map(test -> 1, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@4c16629b, m -> 0, searchComputerName -> Amstrad CPC, searchCriterion -> Amstrad, Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=Amstrad, status -> 200, computerURL -> /computers/411),1467971643356,28,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test
+test2
+test:Session(Admins,8,Map(test -> 1, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@405f5302, m -> 0, searchComputerName -> Amstrad CPC, searchCriterion -> Amstrad, Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=Amstrad, status -> 200, computerURL -> /computers/411),1467971643856,25,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test3
+test4
+test:Session(Admins,9,Map(test -> 1, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@460d0159, m -> 0, searchComputerName -> Amstrad CPC, searchCriterion -> Amstrad, Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=Amstrad, status -> 200, computerURL -> /computers/411),1467971644355,18,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test
+test2
+test:Session(Admins,10,Map(test -> 2, gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@38102152, m -> 0, searchComputerName -> ASUS Eee PC 1005PE, searchCriterion -> eee, Infos -> 1, gatling.http.referer -> http://computer-database.gatling.io/computers?f=eee, status -> 200, computerURL -> /computers/525),1467971644856,18,OK,List(ExitOnCompleteLoopBlock(m)),<function1>)
+Failure(error)
+test3
+test4
+test
+test2
+test3
+test4
+
+================================================================================
+2016-07-08 11:54:09                                          10s elapsed
+---- Admins --------------------------------------------------------------------
+[--------------------------------------------------------------------------]  0%
+          waiting: 0      / active: 10     / done:0     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=87     KO=0     )
+> Home                                                     (OK=10     KO=0     )
+> Home Redirect 1                                          (OK=10     KO=0     )
+> Search                                                   (OK=3      KO=0     )
+> Select                                                   (OK=10     KO=0     )
+> Select Redirect 1                                        (OK=3      KO=0     )
+> Search ASUS Eee PC 1005PE                                (OK=3      KO=0     )
+> Page 0                                                   (OK=10     KO=0     )
+> Search Amstrad CPC                                       (OK=4      KO=0     )
+> Page 1                                                   (OK=10     KO=0     )
+> Page 2                                                   (OK=9      KO=0     )
+> Page 3                                                   (OK=7      KO=0     )
+> Page 4                                                   (OK=5      KO=0     )
+> Edite                                                    (OK=3      KO=0     )
+================================================================================
+
+
+================================================================================
+2016-07-08 11:54:14                                          15s elapsed
+---- Admins --------------------------------------------------------------------
+[##################################################################--------] 90%
+          waiting: 0      / active: 1      / done:9     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=122    KO=0     )
+> Home                                                     (OK=10     KO=0     )
+> Home Redirect 1                                          (OK=10     KO=0     )
+> Search                                                   (OK=3      KO=0     )
+> Select                                                   (OK=10     KO=0     )
+> Select Redirect 1                                        (OK=3      KO=0     )
+> Search ASUS Eee PC 1005PE                                (OK=3      KO=0     )
+> Page 0                                                   (OK=10     KO=0     )
+> Search Amstrad CPC                                       (OK=4      KO=0     )
+> Page 1                                                   (OK=10     KO=0     )
+> Page 2                                                   (OK=10     KO=0     )
+> Page 3                                                   (OK=10     KO=0     )
+> Page 4                                                   (OK=10     KO=0     )
+> Edite                                                    (OK=10     KO=0     )
+> Post                                                     (OK=10     KO=0     )
+> Post Redirect 1                                          (OK=9      KO=0     )
+================================================================================
+
+
+================================================================================
+2016-07-08 11:54:15                                          15s elapsed
+---- Admins --------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done:10    
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=123    KO=0     )
+> Home                                                     (OK=10     KO=0     )
+> Home Redirect 1                                          (OK=10     KO=0     )
+> Search                                                   (OK=3      KO=0     )
+> Select                                                   (OK=10     KO=0     )
+> Select Redirect 1                                        (OK=3      KO=0     )
+> Search ASUS Eee PC 1005PE                                (OK=3      KO=0     )
+> Page 0                                                   (OK=10     KO=0     )
+> Search Amstrad CPC                                       (OK=4      KO=0     )
+> Page 1                                                   (OK=10     KO=0     )
+> Page 2                                                   (OK=10     KO=0     )
+> Page 3                                                   (OK=10     KO=0     )
+> Page 4                                                   (OK=10     KO=0     )
+> Edite                                                    (OK=10     KO=0     )
+> Post                                                     (OK=10     KO=0     )
+> Post Redirect 1                                          (OK=10     KO=0     )
+================================================================================
+
+Simulation computesale20 completed in 14 seconds
+Simulation is finished
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        123 (OK=123    KO=0     )
+> min response time                                     50 (OK=50     KO=-     )
+> max response time                                   1227 (OK=1227   KO=-     )
+> mean response time                                   104 (OK=104    KO=-     )
+> std deviation                                        115 (OK=115    KO=-     )
+> response time 50th percentile                         67 (OK=67     KO=-     )
+> response time 75th percentile                        117 (OK=117    KO=-     )
+> response time 95th percentile                        221 (OK=221    KO=-     )
+> response time 99th percentile                        321 (OK=321    KO=-     )
+> mean requests/sec                                    8.2 (OK=8.2    KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 800 ms                                           122 ( 99%)
+> 800 ms < t < 1200 ms                                   0 (  0%)
+> t > 1200 ms                                            1 (  1%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/results/computesale20-1467971639444/index.html
+Global: max of response time is less than 50 : false
+For all requests: count of failed requests is less than 5 : true
+Edite: percentage of successful requests is greater than 90 : true
+Could not find stats matching assertion path List(Search 0) : false
+Could not find stats matching assertion path List(Search 0) : false
+Could not find stats matching assertion path List(Search 0) : false
+For all requests: count of failed requests is greater than 50 : false
+Global: mean of response time is greater than 100 : true
+this is an other script
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2
+this is another script
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2

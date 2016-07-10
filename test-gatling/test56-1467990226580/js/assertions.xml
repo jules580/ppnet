@@ -1,0 +1,11 @@
+<testsuite name="default4.RecordedSimulateloginFalse" tests="3" errors="0" failures="2" time="0">
+<testcase name="Global: max of response time is less than 50" status="true" time="0">
+  <system-out>Global: max of response time is less than 50</system-out>
+</testcase>
+<testcase name="For all requests: count of failed requests is less than 5" status="false" time="0">
+  <failure type="For all requests">Actual values: 0, 0, 0, 0, 0, 0, 0, 0, 0, 10</failure>
+</testcase>
+<testcase name="Could not find stats matching assertion path List(Login)" status="false" time="0">
+  <failure type="Login">Actual values: </failure>
+</testcase>
+</testsuite>

@@ -1,0 +1,3 @@
+> min response time                                      1 (OK=1      KO=3     )
+> max response time                                     55 (OK=55     KO=8     )
+> mean response time                                     9 (OK=10     KO=3     )

@@ -1,0 +1,10 @@
+> request count                                        100 (OK=90     KO=10    )
+> min response time                                      1 (OK=1      KO=3     )
+> max response time                                     44 (OK=44     KO=7     )
+> mean response time                                     9 (OK=10     KO=3     )
+> response time 50th percentile                          5 (OK=5      KO=3     )
+> response time 75th percentile                         19 (OK=19     KO=4     )
+> response time 95th percentile                         25 (OK=25     KO=6     )
+> response time 99th percentile                         37 (OK=37     KO=6     )
+---- Response Time Distribution ------------------------------------------------
+Global: max of response time is less than 50 : true
