@@ -1,0 +1,1 @@
+{"chunk":[{"content":{"last_active_ago":66642,"presence":"offline","user_id":"@test05:matrix.allmende.io"},"type":"m.presence"}],"end":"s174_259_22_1_1_1","start":"s174_258_22_1_1_1"}

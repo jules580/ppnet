@@ -1,0 +1,1 @@
+{"account_data":[],"end":"s46_72_6_1_1_1","presence":[{"content":{"currently_active":false,"last_active_ago":215741,"presence":"online","user_id":"@test454:matrix.allmende.io"},"type":"m.presence"}],"receipts":[],"rooms":[]}
