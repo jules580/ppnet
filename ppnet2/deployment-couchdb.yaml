@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: couchdb
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        run: couchdb
+    spec:
+      containers:
+        - name: couchdb
+          image: kocolosk/couchdb:2.0-prod
+          ports:
+          - name: couchdb
+            containerPort: 5984
+          - name: epmd
+            containerPort: 4369
+          - containerPort: 9100
