@@ -10,8 +10,10 @@ infos=$(cut -d'.' -f2 gatling.txt)
 scala=".scala"
 info="/home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/user-files/simulations/default4/"$infos
 echo $info > gatling2.txt
+echo -n "URL: "
+read URL
 infos3=$(cut -d 'y' -f1 gatling2.txt)
-sudo sed -re 's/coucou/'$(echo $4)'/g' $info$scala> $infos3$d$scala
+sudo sed -re 's/coucou/'$(echo $URL)'/g' $info$scala> $infos3$d$scala
 
 sed -re 's/RecordedSimulateloginFalsey/RecordedSimulateloginFalse/g' $infos3$d$scala > $infos3$scala
 rm -f $infos3$d$scala

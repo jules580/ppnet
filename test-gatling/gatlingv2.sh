@@ -7,21 +7,12 @@ d=4
 #do
 echo $1> gatling.txt
 infos=$(cut -d'.' -f2 gatling.txt)
-scala=".scala"
-info="/home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/user-files/simulations/default4/"$infos
-echo $info > gatling2.txt
-infos3=$(cut -d 'y' -f1 gatling2.txt)
-sudo sed -re 's/coucou/'$(echo $4)'/g' $info$scala> $infos3$d$scala
-
-sed -re 's/RecordedSimulateloginFalsey/RecordedSimulateloginFalse/g' $infos3$d$scala > $infos3$scala
-rm -f $infos3$d$scala
-sudo chmod 777 $infos3$scala
-
+scal=".scala"
+sed -re 's/test/coucou' $1$scala
 echo $infos
 index="*"
-util=$(cut -d'y' -f1 gatling.txt)
 echo "this is a script $a"
-sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $util -on $3  -rf /home/tai/test-gatling > gatling.txt
+sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $1 -on $3  -rf /home/tai/test-gatling > gatling.txt
 cd $3$index
  cp simulation.log /home/tai/test-gatling
 cd ..
@@ -53,7 +44,7 @@ fi
 
 sudo rm -f gatling.txt
 echo "this is an other script $a"
-sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $2$d  >gatling2.txt
+sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $2  >gatling2.txt
 
 
 test=$(grep -i WARN gatling2.txt) 
@@ -70,7 +61,4 @@ fi
 let "a=a+1"
 #done
 #sudo rm -f gatling.txt
-
-
-
 
