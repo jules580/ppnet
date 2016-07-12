@@ -1,0 +1,1 @@
+{"url":"mxc://matrix.allmende.io/oVLMhWwxjLaGcgoFbZBqBezu","msgtype":"m.image","body":"Capture d'écran 2016-06-28 14:54:42.png","info":{"size":61627,"w":1065,"h":576,"mimetype":"image/png"}}

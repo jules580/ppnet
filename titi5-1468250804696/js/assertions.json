@@ -1,0 +1,36 @@
+{
+  "simulation": "default4.RecordedSimulateloginFalse",
+  "simulationId": "titi5",
+  "start": 1468250804696,
+  "description": "",
+  "scenarios": ["Admins"],
+  "assertions": [
+{
+  "path": "Global",
+  "target": "max of response time",
+  "condition": "is less than",
+  "conditionValues": [2],
+  "result": false,
+  "message": "Global: max of response time is less than 2",
+  "values": [52]
+},
+{
+  "path": "For all requests",
+  "target": "count of failed requests",
+  "condition": "is less than",
+  "conditionValues": [2],
+  "result": true,
+  "message": "For all requests: count of failed requests is less than 2",
+  "values": [0,0,0,0,0,0,0,0,0,2]
+},
+{
+  "path": "login client",
+  "target": "percentage of successful requests",
+  "condition": "is greater than",
+  "conditionValues": [90],
+  "result": false,
+  "message": "login client: percentage of successful requests is greater than 90",
+  "values": [0]
+}
+  ]
+}

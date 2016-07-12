@@ -1,0 +1,78 @@
+#!/bin/bash
+#echo "this is a script"
+#sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $1
+a=0
+d=4
+#for i in `seq 1 2`;
+#do
+echo $1> gatling.txt
+infos=$(cut -d'.' -f2 gatling.txt)
+scala=".scala"
+info="/home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/user-files/simulations/default4/"$infos
+echo $info > gatling2.txt
+echo -n "URL: "
+read URL
+infos3=$(cut -d 'y' -f1 gatling2.txt)
+sudo sed -re 's/coucou/'$(echo $URL)'/g' $info$scala> $infos3$d$scala
+
+sed -re 's/RecordedSimulateloginFalsey/RecordedSimulateloginFalse/g' $infos3$d$scala > $infos3$scala
+rm -f $infos3$d$scala
+sudo chmod 777 $infos3$scala
+
+echo $infos
+index="*"
+util=$(cut -d'y' -f1 gatling.txt)
+echo "this is a script $a"
+sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $util -on $3  -rf /home/tai/test-gatling > gatling.txt
+cd $3$index
+ cp simulation.log /home/tai/test-gatling
+cd ..
+#more simulation.log
+
+awk -F " " '{ print $5,"="$8}' simulation.log
+test=$(grep -i WARN gatling.txt)
+
+counter=$(grep -o WARN gatling.txt| wc -l)
+grep -i 'request count' gatling.txt > test8.txt
+awk -F " " '{print $2,$3," = "$4}' test8.txt
+grep -i time gatling.txt > test9.txt
+grep -i '> m' test9.txt> test10.txt
+awk -F " " '{print $2,$3," = "$5}' test10.txt
+grep -i 'percentile' test9.txt > test11.txt
+awk -F " " '{print $2,$3,$4,$5" = "$6}' test11.txt
+
+if [ "$counter" -ne "$d" ]
+then 
+echo "NOK"
+#echo $test
+echo $counter
+echo $awk>test.txt
+echo $test
+else
+echo "OK t"
+fi
+
+
+sudo rm -f gatling.txt
+echo "this is an other script $a"
+sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $2$d  >gatling2.txt
+
+
+test=$(grep -i WARN gatling2.txt) 
+counter=$(grep -o WARN gatling2.txt| wc -l)
+if [ "$counter" -ne "$d" ]
+then
+echo " NOK "
+echo $test
+echo $counter
+else 
+echo "OK tr"
+fi
+#sudo rm -f gatling2.txt
+let "a=a+1"
+#done
+#sudo rm -f gatling.txt
+
+
+
+
