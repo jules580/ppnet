@@ -73,11 +73,10 @@ before{
 		"Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4",
 		"Connection" -> "keep-alive")
 
-    val uri1 = test
-//"http://0.0.0.0:3030/_matrix/client"
+    val uri1 = "http://0.0.0.0:3030/_matrix/client"
 
 	object Index{
-		val index=exec(http("Init")
+		val index=exec(http("Init Simulation")
 			.get("/_matrix/client/")
 			.headers(headers_0)
 			.resources(http("Acces api")
@@ -88,12 +87,12 @@ before{
 			.get("/_matrix/client/api/v1/initialSync?access_token=MDAyMGxvY2F0aW9uIG1hdHJpeC5hbGxtZW5kZS5pbwowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMmRjaWQgdXNlcl9pZCA9IEB0ZXN0cmU6bWF0cml4LmFsbG1lbmRlLmlvCjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDFkY2lkIHRpbWUgPCAxNDY3NzEzNDU5NzczCjAwMmZzaWduYXR1cmUgk-KH11UPLq7RDpDYOuebPksAl4PqvHHAHXbC3Xn0iWwK&limit=8")
 			.headers(headers_1)
 			.check(status.is(200)),
-            http("presence")
+            http("presence Users")
 			.put("/_matrix/client/api/v1/presence/%40testre%3Amatrix.allmende.io/status?access_token=MDAyMGxvY2F0aW9uIG1hdHJpeC5hbGxtZW5kZS5pbwowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMmRjaWQgdXNlcl9pZCA9IEB0ZXN0cmU6bWF0cml4LmFsbG1lbmRlLmlvCjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDFkY2lkIHRpbWUgPCAxNDY3NzEzNDU5NzczCjAwMmZzaWduYXR1cmUgk-KH11UPLq7RDpDYOuebPksAl4PqvHHAHXbC3Xn0iWwK")
 			.headers(headers_3)
 			.body(RawFileBody("RecordedSimulatelogin_0003_request.txt"))
 			.check(status.is(200)),
-            http("turnServer")
+            http("turnServer on")
 			.get("/_matrix/client/api/v1/voip/turnServer?access_token=MDAyMGxvY2F0aW9uIG1hdHJpeC5hbGxtZW5kZS5pbwowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMmRjaWQgdXNlcl9pZCA9IEB0ZXN0cmU6bWF0cml4LmFsbG1lbmRlLmlvCjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDFkY2lkIHRpbWUgPCAxNDY3NzEzNDU5NzczCjAwMmZzaWduYXR1cmUgk-KH11UPLq7RDpDYOuebPksAl4PqvHHAHXbC3Xn0iWwK")
 			.headers(headers_1)
 			.check(status.is(200)),
@@ -109,7 +108,7 @@ before{
 			.get("/_matrix/client/img/logo.png")
 			.headers(headers_7)
 			.check(status.is(304)),
-            http("event")
+            http("event users")
 			.get("/_matrix/client/api/v1/events?access_token=MDAyMGxvY2F0aW9uIG1hdHJpeC5hbGxtZW5kZS5pbwowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMmRjaWQgdXNlcl9pZCA9IEB0ZXN0cmU6bWF0cml4LmFsbG1lbmRlLmlvCjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDFkY2lkIHRpbWUgPCAxNDY3NzEzNDU5NzczCjAwMmZzaWduYXR1cmUgk-KH11UPLq7RDpDYOuebPksAl4PqvHHAHXbC3Xn0iWwK&from=s20_11_5_1_1_1&timeout=30000")
 			.headers(headers_1)
 			.check(status.is(200)))
@@ -120,7 +119,7 @@ before{
 			 val feeder =csv("login.csv").random
 			
 		val login= exec(feed(feeder))
-		.exec(http("login")
+		.exec(http("login client")
 			.post("/_matrix/client/api/v1/login")
 			.headers(headers_9) 
 			.body(StringBody("""{"user":"${login}","password":"${password}","type":"m.login.passwor"}"""))
@@ -128,7 +127,7 @@ before{
 			.get("/_matrix/client/app/home/home.html")
 			.check(status.is(200)),
         
-            http("Logo-small")
+            http("Logo small")
 			.get("/_matrix/client/img/logo-small.png")
 			.headers(headers_11)
 			.check(status.is(200)),
@@ -136,11 +135,11 @@ before{
 			.get("/_matrix/client/api/v1/voip/turnServer?access_token=MDAyMGxvY2F0aW9uIG1hdHJpeC5hbGxtZW5kZS5pbwowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMmRjaWQgdXNlcl9pZCA9IEB0ZXN0cmU6bWF0cml4LmFsbG1lbmRlLmlvCjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDFkY2lkIHRpbWUgPCAxNDY3NzEzNDk5Nzc3CjAwMmZzaWduYXR1cmUghKHurGRshGS0dpwu2WqEV3C8Pshl-KoZEs_wGWHzx-8K")
 			.headers(headers_12)
 			.check(status.is(200)),
-            http("DisplayName")
+            http("DisplayName User")
 			.get("/_matrix/client/api/v1/profile/%40testre%3Amatrix.allmende.io/displayname?access_token=MDAyMGxvY2F0aW9uIG1hdHJpeC5hbGxtZW5kZS5pbwowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMmRjaWQgdXNlcl9pZCA9IEB0ZXN0cmU6bWF0cml4LmFsbG1lbmRlLmlvCjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDFkY2lkIHRpbWUgPCAxNDY3NzEzNDk5Nzc3CjAwMmZzaWduYXR1cmUghKHurGRshGS0dpwu2WqEV3C8Pshl-KoZEs_wGWHzx-8K")
 			.headers(headers_12)
 			.check(status.is(200)),
-            http("Get public Room")
+            http("Get publicRoom")
 			.get("/_matrix/client/api/v1/publicRooms")
 			.headers(headers_12)
 			.check(status.is(200)),
@@ -148,7 +147,7 @@ before{
 			.get("/_matrix/client/api/v1/profile/%40testre%3Amatrix.allmende.io/avatar_url?access_token=MDAyMGxvY2F0aW9uIG1hdHJpeC5hbGxtZW5kZS5pbwowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMmRjaWQgdXNlcl9pZCA9IEB0ZXN0cmU6bWF0cml4LmFsbG1lbmRlLmlvCjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDFkY2lkIHRpbWUgPCAxNDY3NzEzNDk5Nzc3CjAwMmZzaWduYXR1cmUghKHurGRshGS0dpwu2WqEV3C8Pshl-KoZEs_wGWHzx-8K")
 			.headers(headers_12)
 			.check(status.is(200)),
-            http("Info recent event")
+            http("Info event")
 			.get("/_matrix/client/app/recents/recents.html")
 			.check(status.is(200))
 			.check(currentLocation.saveAs("ccurrentLocation"))
@@ -173,12 +172,12 @@ after{
 }
 val admins=scenario("Admins").exec(Index.index,Login.login)
 	setUp(admins.inject(
-	rampUsers(10) over (10 seconds))
+	rampUsers(10) over ( 10 seconds))
 	.throttle(reachRps(10) in (10 seconds), holdFor(15 seconds),jumpToRps(50),holdFor(10 seconds)))
 	.assertions(
-	global.responseTime.max.lessThan(50),
-	forAll.failedRequests.count.lessThan(5),
-	details("Login").successfulRequests.percent.greaterThan(90))
+	global.responseTime.max.lessThan(10),
+	forAll.failedRequests.count.lessThan(10),
+	details("login client").successfulRequests.percent.greaterThan(90))
 	.protocols(httpProtocol)
 	
 }

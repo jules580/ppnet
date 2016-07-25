@@ -6,7 +6,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 
-class RecordedSimulatelogin extends Simulation {
+class RecordedSimulatelogin2 extends Simulation {
 before{
 	println("Simulation about login will begin")
 }
@@ -72,7 +72,7 @@ before{
 		"Accept-Language" -> "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4",
 		"Connection" -> "keep-alive")
 
-    val uri1 = "http://0.0.0.0:3030/_matrix/client"
+    val uri1 = "http://0.0.0.0:3000/_matrix/client"
 
 	object Index{
 		val index=exec(http("Init")
@@ -171,7 +171,7 @@ after{
 val admins=scenario("Admins").exec(Index.index,Login.login)
 	setUp(admins.inject(
 	rampUsers(100) over (10 seconds))
-	.throttle(reachRps(10) in (10 seconds), holdFor(15 seconds),jumpToRps(50),holdFor(10 seconds)))
+	.throttle(reachRps(100) in (10 seconds)))
 	.assertions(
 	global.responseTime.max.lessThan(50),
 	forAll.failedRequests.count.lessThan(5),

@@ -118,13 +118,13 @@ after{
 val admins= scenario("Admins").exec(Login.login,CreateRoom.createroom)
 	setUp(admins.inject(
 	//nothingFor(4 seconds),
-	atOnceUsers(10))
+	rampUsers(20) over(20 seconds)))
 	//rampUsers(10) over (29 seconds))
 	/*constantUsersPerSec(2) during (5 seconds))
 	constantUsersPerSec(2) during (5 seconds) randomized,
     rampUsersPerSec(2) to 3 during (3 seconds)*/
 	
-	.throttle(reachRps(10) in (10 seconds), holdFor(15 seconds), jumpToRps(50), holdFor(10 seconds)))
+	//.throttle(reachRps(20) in (20 seconds)))
 	
 	
 	

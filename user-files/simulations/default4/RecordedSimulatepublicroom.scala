@@ -205,7 +205,7 @@ after{
 
 val admins= scenario("Admins").exec(Index.index,Login.login,CreateRoom.createroom)
 	setUp(admins.inject(
-     rampUsers(10) over (5 seconds)).throttle(reachRps(10) in (10 seconds), holdFor(15 seconds),jumpToRps(50),holdFor(10 seconds)))
+     rampUsers(10) over (40 seconds)).throttle(reachRps(10) in (10 seconds), holdFor(15 seconds)))
      .assertions(
      global.responseTime.max.lessThan(50),
      forAll.failedRequests.count.lessThan(5),

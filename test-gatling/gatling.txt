@@ -1,3 +1,23 @@
 GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2
 Simulation about login will begin
-Simulation default4.RecordedSimulatelogin started...
+Simulation default4.RecordedSimulateloginFalse started...
+
+================================================================================
+2016-07-15 10:16:55                                           5s elapsed
+---- Admins --------------------------------------------------------------------
+[------------------------------                                            ]  0%
+          waiting: 6      / active: 4      / done:0     
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=9      KO=0     )
+> Init Simulation                                          (OK=2      KO=0     )
+> Acces api                                                (OK=1      KO=0     )
+> Access sync                                              (OK=1      KO=0     )
+> presence Users                                           (OK=1      KO=0     )
+> turnServer on                                            (OK=1      KO=0     )
+> Login page                                               (OK=1      KO=0     )
+> list event                                               (OK=1      KO=0     )
+> logo picture                                             (OK=1      KO=0     )
+================================================================================
+
+10:16:57.070 [WARN ] i.g.h.a.ResponseProcessor - Request 'login client' failed: status.find.is(200), but actually found 400
+testSession(Admins,1,Map(gatling.http.cache.dns -> io.gatling.http.resolver.ShuffleJdkNameResolver@68e5e379, gatling.http.cache.contentCache -> io.gatling.core.util.cache.Cache@4370929, indice -> 8, login -> test06, password -> test06),1468570611550,5,KO,List(),<function1>)

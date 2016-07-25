@@ -1,0 +1,1 @@
+{"body":"test.png","info":{"size":68247,"mimetype":"image/png","w":645,"h":408},"msgtype":"m.image","url":"mxc://matrix.allmende.io/wKoOONNwPnCaUxytHAGUMoTS"}

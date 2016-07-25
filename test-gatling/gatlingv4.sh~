@@ -34,14 +34,14 @@ echo $info > gatling2.txt
 
 infos3=$(cut -d 'y' -f1 gatling2.txt)
 sed -re 's/coucou/'$(echo $URL)'/g' $info$scala> $infos3$d$scala
-sed -re 's/10101010/'$(echo $RampUser)'/g' $infos3$d$scala > $infos3$a$scala
-sed -re 's/11111111/'$(echo $Time)'/g' $infos3$a$scala> $infos3$e$scala
+sed -re 's/10101010/'$(echo $RampUser)'/g' $infos3$d$scala > $infos3$h$scala
+sed -re 's/11111111/'$(echo $Time)'/g' $infos3$h$scala> $infos3$e$scala
 sed -re 's/10111011/'$(echo $GlobalTime)'/g' $infos3$e$scala> $infos3$f$scala
 sed -re 's/10111110/'$(echo $FailedRequestCount)'/g' $infos3$f$scala > $infos3$g$scala
 sed -re 's/RecordedSimulateloginFalsey/RecordedSimulateloginFalse/g' $infos3$g$scala > $infos3$scala
 
 
- rm -f $infos3$a$scala
+ rm -f $infos3$h$scala
  rm -f $infos3$d$scala
 rm -f $infos3$e$scala
 rm -f $infos3$f$scala
@@ -56,10 +56,7 @@ sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $ut
 cd $DernierArgument$a$index
  cp simulation.log /home/tai/test-gatling
 cd ..
-#more simulation.log
 
-
-#awk -F " " '{ print $5,"="$8}' simulation.log
 awk -F " " '{ if($1!="USER" && $1!="ASSERTION" && $1!="RUN")
 if($8!="KO")
 print $4 $5" User"$3," = "$8
@@ -81,7 +78,17 @@ grep -i '> m' test9.txt> test10.txt
 awk -F " " '{print $2,$3," = "$5}' test10.txt
 grep -i 'percentile' test9.txt > test11.txt
 awk -F " " '{print $2,$3,$4,$5" = "$6}' test11.txt
-
+grep -i 'Global:' gatling.txt> test13.txt
+cat test13.txt
+grep -i 'For ' gatling.txt > test14.txt
+cat test14.txt
+ rm -f test9.txt
+ rm -f test10.txt
+ rm -f test11.txt
+ rm -f test12.txt
+ rm -f test13.txt
+ rm -f test14.txt
+ rm -f test8.txt
 if [ "$counter" -ne "$d" ]
 then 
 echo "NOK"
@@ -95,26 +102,11 @@ fi
 let "a=a+1"
 
 sudo rm -f gatling.txt
-#echo "this is an other script $a"
-#sh /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/bin/gatling.sh -s $2$d  >gatling2.txt
 
-
-#test=$(grep -i WARN gatling2.txt) 
-#counter=$(grep -o WARN gatling2.txt| wc -l)
-#if [ "$counter" -ne "$d" ]
-#then
-#echo " NOK "
-#echo $test
-#echo $counter
-#else 
-#echo "OK tr"
-#fi
-
-#sudo rm -f gatling2.txt
 
 done
 done
-#sudo rm -f gatling.txt
+
 
 
 

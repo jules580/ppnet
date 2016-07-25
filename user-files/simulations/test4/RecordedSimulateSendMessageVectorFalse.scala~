@@ -1,0 +1,37 @@
+package default4
+
+import scala.concurrent.duration._
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+import Init._
+import Login._
+import CreatePublicRoom._
+import Trait._
+class RecordedSimulateSendMessageVector extends Simulation {
+
+	val httpProtocol = http
+		.baseURL("http://0.0.0.0:3030")
+		.inferHtmlResources(WhiteList(), BlackList())
+		.userAgentHeader("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/50.0.2661.102 Chrome/50.0.2661.102 Safari/537.36")
+
+before{
+	println("a message will be send")
+	
+}
+
+	
+		after{
+			println("the message is send")
+		}
+val admins=scenario("admins").exec(init2)
+	setUp(admins.inject(atOnceUsers(10),
+	rampUsers(10) over (60 seconds))
+	.throttle(reachRps(10) in (10 seconds), holdFor(15 seconds), jumpToRps(10), holdFor(10 seconds)))
+	.assertions(
+	global.responseTime.max.lessThan(10),
+	forAll.failedRequests.count.lessThan(10),
+	details("Wait Message").successfulRequests.percent.greaterThan(90))
+	.protocols(httpProtocol)
+}

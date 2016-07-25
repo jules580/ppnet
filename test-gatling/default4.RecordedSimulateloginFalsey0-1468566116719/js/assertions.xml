@@ -1,0 +1,11 @@
+<testsuite name="default4.RecordedSimulateloginFalse" tests="3" errors="0" failures="2" time="0">
+<testcase name="Global: max of response time is less than 2" status="false" time="0">
+  <failure type="Global">Actual values: 77</failure>
+</testcase>
+<testcase name="For all requests: count of failed requests is less than 2" status="true" time="0">
+  <system-out>For all requests: count of failed requests is less than 2</system-out>
+</testcase>
+<testcase name="login client: percentage of successful requests is greater than 90" status="false" time="0">
+  <failure type="login client">Actual values: 0</failure>
+</testcase>
+</testsuite>
