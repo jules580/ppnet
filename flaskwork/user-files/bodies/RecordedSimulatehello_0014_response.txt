@@ -1,0 +1,1 @@
+{"chunk":[{"guest_can_join":false,"num_joined_members":0,"room_id":"!RnQPPkoZAZTXjfbhoQ:matrix.allmende.io","world_readable":false},{"guest_can_join":false,"num_joined_members":1,"room_id":"!jiyAfkkUslxFIUnGNv:matrix.allmende.io","world_readable":false}],"end":"END","start":"START"}

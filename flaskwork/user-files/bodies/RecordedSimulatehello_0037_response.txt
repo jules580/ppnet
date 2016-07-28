@@ -1,0 +1,1 @@
+{"chunk":[{"age":49,"content":{"body":"hello","msgtype":"m.text"},"event_id":"$146771957164nyhVZ:matrix.allmende.io","origin_server_ts":1467719571875,"room_id":"!dyHzGOvpxvavsQOcWN:matrix.allmende.io","sender":"@test454:matrix.allmende.io","type":"m.room.message","unsigned":{"age":49},"user_id":"@test454:matrix.allmende.io"}],"end":"s58_73_10_1_1_1","start":"s57_73_10_1_1_1"}
