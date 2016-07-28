@@ -3,7 +3,7 @@ version: '2'
 services:
 
   gatling:
-    image: vbaer/flask7
+    image: vbaer/flaskwork8
     volumes:
       - ./user-files:/opt/gatling/user-files
     ports:
