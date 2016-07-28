@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+
+  gatling:
+    image: vbaer/flask3
+    volumes:
+      - ./conf:/opt/gatling/conf
+      - ./user-files:/opt/gatling/user-files
+      - ./results:/opt/gatling/results
+    ports:
+      - "8080:8080"
