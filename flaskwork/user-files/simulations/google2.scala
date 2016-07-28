@@ -7,7 +7,7 @@ import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 
 class google2 extends Simulation {
-val feeder=jsonUrl("http://104.197.42.202:5050/test.json").random
+val feeder=jsonUrl("http://192.168.2.76:5050/test.json").random
 
 before{
 	println("Simulation about login will begin")
@@ -19,7 +19,7 @@ before{
 
 
 	object Index{
-		val feeders=jsonUrl("http://104.197.42.202:5050/test.json").random
+		val feeders=jsonUrl("http://192.168.2.76:5050/test.json").random
 		val feeder=csv("login.csv").random
 		
 		val index=exec(feed(feeder))
@@ -58,7 +58,7 @@ before{
 		}
 		object Login{
 			 val feeder =csv("login.csv").random
-			val feeders=jsonUrl("http://104.197.42.202:5050/test.json")
+			val feeders=jsonUrl("http://192.168.2.76:5050/test.json")
 		val login= exec(feed(feeder))
 		.exec(feed(feeders))
 		.exec(http("login")
