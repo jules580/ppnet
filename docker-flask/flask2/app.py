@@ -2,6 +2,7 @@
 from flask import Flask, request
 import json
 import requests
+import time
 app = Flask(__name__)
 i=0
 k=0
@@ -31,10 +32,12 @@ def echo():
     Receive_data=Data[index]
     URL=Receive_data[url]
     #r=requests.get('http://192.168.2.77:')
-    return "You said: "+str(i) 
+    r=requests.get('http://192.168.2.76:7070/gatling/test4.google4/start')     
+    return "You said: "+str(i)+" "+str(r.content)  
     #
     #return str(r.content)
-    
+
+	    
 @app.route("/launchtest/vector")
 def echo2(): 
     data=request.args.get('content','')
@@ -55,8 +58,10 @@ def echo2():
     DataVector.append(testnumvector)
     Receive_data_vector=DataVector[index]
     URL=Receive_data_vector[url]
-    #r=requests.get("url")
-    return "You said: "+str(k) 
+    r=requests.get('http://192.168.2.76:7070/gatling/test4.google4/start')
+    return "You said: "+str(k)+" "+str(r.content)
+
+   
 @app.route('/test/conf/matrix/<testerId>')
 def run(testerId):
  
@@ -118,6 +123,46 @@ def runvector(testerId):
   
   SendVector=False
   return testreceivevector
+
+@app.route('/checkstatus/<Scenario>')
+def check(Scenario):
+        urlsend="http://192.168.2.76:7070/gatling/"+Scenario
+        r=requests.get(urlsend)
+        #return "hello"+Scenario
+	js= json.loads((r.content))
+	return "Scenario"+Scenario+" is "+js['status']
+
+@app.route('/getreports/<Scenario>')
+def getreports(Scenario):
+        urlresult="http://192.168.2.76:7070/gatling/"+Scenario+"/reports"
+	r=requests.get(urlresult)
+	js=json.loads((r.content))
+	tabjs=js['reports']
+	index=len(tabjs)-1
+	return "Last Reports"+tabjs[index]
+
+
+@app.route('/getresult/<Scenario>')
+def getresults(Scenario):
+	scenario_content=Scenario.split('.')
+	scenario=scenario_content[1]
+	for i in range(0,40):
+		url="http://192.168.2.76:7070/gatling/"+Scenario
+		res=requests.get(url)
+		jst=json.loads(res.content)
+		jstab=jst['status']
+		if jstab=="stopped":
+			urlresult="http://192.168.2.76:7070/gatling/"+scenario+"/reports"
+			r=requests.get(urlresult)
+			js=json.loads((r.content))
+			tabjs=js['reports']
+			index=len(tabjs)-1
+			Name=tabjs[index]
+			urlget="http://192.168.2.76:7070/gatling/"+scenario+"/reports/"+Name
+			re=requests.get(urlget)
+			break
+		time.sleep(2)
+	return str(re.content)
 
 if __name__ == "__main__":
 	app.run(debug=True, host= '0.0.0.0')
