@@ -1,3 +1,4 @@
+
 #! /usr/bin/python
 
 from flask import Flask
@@ -84,7 +85,7 @@ def sim_action(simulation, action):
     if action == 'start' or action == 'stop':
 
         if action == 'start':
-            p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh', '-nr',
+            p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh',
                                   '-s', simulation])
             return True
 
@@ -134,6 +135,7 @@ def reports(simulation, action='find', report=None):
                     zipf = zipfile.ZipFile(zippedfile, 'w')
                     zipdir(report, zipf)
                     zipf.close()
+		   # subprocess.call(["cp","-f",_GATLING_PATH+"/"+report+'.zip',"/app/"+report+'.zip'])
                     return app.send_static_file(report + '.zip')
                 except Exception as e:
                     return e
@@ -230,6 +232,9 @@ def gatling_simulation_reports(simulation):
 def gatling_simulation_reports_download(simulation, report):
     """Returns a report zip file"""
     return reports(simulation, action='download', report=report)
+@app.route('/gatling/downloads/<report>')
+def downloads(report):
+	subprocess.call(["cp","-f",_GATLING_PATH+"/"+report+'.zip',"/app/"+report+'.zip'])
 
 
 if __name__ == '__main__':

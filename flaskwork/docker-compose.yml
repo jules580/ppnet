@@ -3,11 +3,11 @@ version: '2'
 services:
 
   gatling:
-    image: vbaer/flaskwork77
+    image: vbaer/flask
     volumes:
       - ./user-files:/opt/gatling/user-files
       - ./user-files/simulations:/app/user-files/
     ports:
-      - "7070:8080"
+      - "8080:8080"
     environment:
-      - Jsonpoint=http://192.168.2.77:5050/test.json
+      - Jsonpoint=http://146.148.86.153:5050/test.json
