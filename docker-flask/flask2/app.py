@@ -9,6 +9,7 @@ k=0
 Data=["test"]
 DataVector=["test"]
 Send=False
+listTest={"test": "http://104.197.250.244:8080" } 
 SendVector=True
 testreceive=""
 testreceivevector=""
@@ -19,6 +20,7 @@ def echo():
     scenario=content[1]
     global i
     global Data
+    global listTest
     i+=1
    # content.append(str(i))
     url= str(i)+"url"
@@ -32,7 +34,7 @@ def echo():
     Receive_data=Data[index]
     URL=Receive_data[url]
     #r=requests.get('http://192.168.2.77:')
-    r=requests.get("http://192.168.2.76:7070/gatling/"+content[1]+"/start")     
+    r=requests.get(listTest[content[2]]+"/gatling/"+content[1]+"/start")     
     return "You said: "+str(i)+" "+str(r.content)  
     #
     #return str(r.content)
@@ -45,6 +47,7 @@ def echo2():
     scenario=content[1]
     global k
     global DataVector
+    global listTest
     k+=1
    # content.append(str(i))
     url= str(k)+"url"
@@ -53,13 +56,12 @@ def echo2():
     matrix=str(k)+"matrix"
      #test= { name : content[0], name2: content[1], name3: content[2]}
 
-    testnumvector={ url: content[0], scenario: content[1], tester: content[2], m
-atrix: content[3]}
+    testnumvector={ url: content[0], scenario: content[1], tester: content[2], matrix: content[3]}
     index=k
     DataVector.append(testnumvector)
     Receive_data_vector=DataVector[index]
     URL=Receive_data_vector[url]
-    r=requests.get("http://192.168.2.76:7070/gatling/"+content[1]+"/start")
+    r=requests.get(listTest[content[2]]+"/gatling/"+content[1]+"/start")
     return "You said: "+str(k)+" "+str(r.content)
 
    
@@ -127,7 +129,8 @@ def runvector(testerId):
 
 @app.route('/checkstatus/<Scenario>')
 def check(Scenario):
-        urlsend="http://192.168.2.76:7070/gatling/"+Scenario
+	global listTest
+        urlsend=listTest["test"]+"/gatling/"+Scenario
         r=requests.get(urlsend)
         #return "hello"+Scenario
 	js= json.loads((r.content))
@@ -135,7 +138,8 @@ def check(Scenario):
 
 @app.route('/getreports/<Scenario>')
 def getreports(Scenario):
-        urlresult="http://192.168.2.76:7070/gatling/"+Scenario+"/reports"
+	global listTest
+        urlresult=listTest["test"]+"/gatling/"+Scenario+"/reports"
 	r=requests.get(urlresult)
 	js=json.loads((r.content))
 	tabjs=js['reports']
@@ -145,26 +149,24 @@ def getreports(Scenario):
 
 @app.route('/getresult/<Scenario>')
 def getresults(Scenario):
+	global listTest
 	scenario_content=Scenario.split('.')
 	scenario=scenario_content[1]
 	for i in range(0,40):
-		url="http://192.168.2.76:7070/gatling/"+Scenario
+		url=listTest["test"]+"/gatling/"+Scenario
 		res=requests.get(url)
 		jst=json.loads(res.content)
 		jstab=jst['status']
 		if jstab=="stopped":
-			urlresult="http://192.168.2.76:7070/gatling/"+scenario+"
-/reports"
+			urlresult=listTest["test"]+"/gatling/"+scenario+"/reports"
 			r=requests.get(urlresult)
 			js=json.loads((r.content))
 			tabjs=js['reports']
 			index=len(tabjs)-1
 			Name=tabjs[0]
-			urlget="http://192.168.2.76:7070/gatling/"+scenario+"/re
-ports/"+Name
+			urlget=listTest["test"]+"/gatling/"+scenario+"/reports/"+Name
 			requests.get(urlget)
-			urlgets="http://192.168.2.76:7070/gatling/downloads/"+Na
-me
+		        urlgets=listTest["test"]+"/gatling/downloads/"+Name
 			rest=requests.get(urlgets)	
 			re=requests.get(urlget)
  			
