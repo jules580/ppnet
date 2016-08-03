@@ -32,7 +32,7 @@ def echo():
     Receive_data=Data[index]
     URL=Receive_data[url]
     #r=requests.get('http://192.168.2.77:')
-    r=requests.get('http://192.168.2.76:7070/gatling/test4.google4/start')     
+    r=requests.get("http://192.168.2.76:7070/gatling/"+content[1]+"/start")     
     return "You said: "+str(i)+" "+str(r.content)  
     #
     #return str(r.content)
@@ -53,12 +53,13 @@ def echo2():
     matrix=str(k)+"matrix"
      #test= { name : content[0], name2: content[1], name3: content[2]}
 
-    testnumvector={ url: content[0], scenario: content[1], tester: content[2], matrix: content[3]}
+    testnumvector={ url: content[0], scenario: content[1], tester: content[2], m
+atrix: content[3]}
     index=k
     DataVector.append(testnumvector)
     Receive_data_vector=DataVector[index]
     URL=Receive_data_vector[url]
-    r=requests.get('http://192.168.2.76:7070/gatling/test4.google4/start')
+    r=requests.get("http://192.168.2.76:7070/gatling/"+content[1]+"/start")
     return "You said: "+str(k)+" "+str(r.content)
 
    
@@ -139,7 +140,7 @@ def getreports(Scenario):
 	js=json.loads((r.content))
 	tabjs=js['reports']
 	index=len(tabjs)-1
-	return "Last Reports"+tabjs[index]
+	return "Last Reports"+tabjs[0]
 
 
 @app.route('/getresult/<Scenario>')
@@ -152,14 +153,21 @@ def getresults(Scenario):
 		jst=json.loads(res.content)
 		jstab=jst['status']
 		if jstab=="stopped":
-			urlresult="http://192.168.2.76:7070/gatling/"+scenario+"/reports"
+			urlresult="http://192.168.2.76:7070/gatling/"+scenario+"
+/reports"
 			r=requests.get(urlresult)
 			js=json.loads((r.content))
 			tabjs=js['reports']
 			index=len(tabjs)-1
-			Name=tabjs[index]
-			urlget="http://192.168.2.76:7070/gatling/"+scenario+"/reports/"+Name
+			Name=tabjs[0]
+			urlget="http://192.168.2.76:7070/gatling/"+scenario+"/re
+ports/"+Name
+			requests.get(urlget)
+			urlgets="http://192.168.2.76:7070/gatling/downloads/"+Na
+me
+			rest=requests.get(urlgets)	
 			re=requests.get(urlget)
+ 			
 			break
 		time.sleep(2)
 	return str(re.content)
