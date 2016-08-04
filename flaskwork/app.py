@@ -85,7 +85,7 @@ def sim_action(simulation, action):
     if action == 'start' or action == 'stop':
 
         if action == 'start':
-            p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh',
+            p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh','-nr',
                                   '-s', simulation])
             return True
 
@@ -235,8 +235,10 @@ def gatling_simulation_reports_download(simulation, report):
 @app.route('/gatling/downloads/<report>')
 def downloads(report):
 	subprocess.call(["cp","-f",_GATLING_PATH+"/"+report+'.zip',"/app/"+report+'.zip'])
-
-
+	return 'Done'
+@app.route('/loads')
+def loads():
+	subprocess.call(["sh","/opt/gatling/user-files/data/Vector.sh"])
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
 
