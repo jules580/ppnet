@@ -1,7 +1,4 @@
 
-
-
-
 from flask import Flask, request
 import json
 import requests
@@ -192,10 +189,9 @@ def getresults(Scenario):
 	global listTest
         global DataVector
 	global i
-	global ReturnData
 	DataReceive=Data[i]
 	tester=str(i)+"tester"
-	test=DataReceive[tester]
+	test="test"
 	del Data[i]
 	i-=1
 	scenario_content=Scenario.split('.')
@@ -205,7 +201,6 @@ def getresults(Scenario):
 		res=requests.get(url)
 		jst=json.loads(res.content)
 		jstab=jst['status']
-		ReturnData=jsbtab
 		if jstab=="stopped":
 			urlresult=listTest[test]+"/gatling/"+scenario+"/reports"
 			r=requests.get(urlresult)
@@ -218,10 +213,10 @@ def getresults(Scenario):
 		        urlgets=listTest[test]+"/gatling/downloads/"+Name
 			rest=requests.get(urlgets)	
 			re=requests.get(urlget)
- 			ReturnData=str(re.content)
+ 			
 			break
 		time.sleep(2)
-	return ReturnData
+	return str(re.content)
 @app.route('/getresult/vector/<Scenario>')
 def getresults2(Scenario):
         global listTest
@@ -234,7 +229,7 @@ def getresults2(Scenario):
         k-=1
         scenario_content=Scenario.split('.')
         scenario=scenario_content[1]
-        for l in range(0,40):
+        for i in range(0,40):
                 url=listTest[test]+"/gatling/"+Scenario
                 res=requests.get(url)
                 jst=json.loads(res.content)
