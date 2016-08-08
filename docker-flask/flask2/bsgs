@@ -1,0 +1,11 @@
+urlresult=listTest[test]+"/gatling/"+Scenario+"/reports"
+			r=requests.get(urlresult)
+			js=json.loads((r.content))
+			tabjs=js['reports']
+			index=0
+			Name=tabjs[index]
+			urlget=listTest[test]+"/gatling/"+scenario+"/reports/"+Name
+			requests.get(urlget)
+			urlgets=listTest[test]+"/gatling/downloads/"+Name
+			requests.get(urlgets)
+			re=requests.get(urlget)
