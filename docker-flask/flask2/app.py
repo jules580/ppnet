@@ -1,12 +1,17 @@
-
-
-
-
-from flask import Flask, request
+from flask import Flask, request, send_file
 import json
 import requests
 import time
-app = Flask(__name__)
+import requests, zipfile, io
+from flask import url_for
+from flask import redirect
+import os.path
+import json
+import psutil
+import subprocess
+import zipfile
+import re
+app = Flask(__name__, static_folder='static')
 i=0
 k=0
 Data=["test"]
@@ -16,6 +21,17 @@ listTest={"test": "http://192.168.2.76:7070" }
 SendVector=True
 testreceive=""
 testreceivevector=""
+
+@app.route('/test3')
+def test():
+	zip_file_url="http://104.197.228.95:5050/data-zip.zip"
+	r = requests.get(zip_file_url)
+	z = zipfile.ZipFile(io.BytesIO(r.content))
+	z.extractall()
+	
+	subprocess.call(["zip","-r","/app/data-zip/test.zip","/app/data-zip/" ])
+        return send_file('data-zip/test.zip')
+	#zipdir(report,z
 @app.route("/launchtest/matrix")
 def echo(): 
     data=request.args.get('content','')
