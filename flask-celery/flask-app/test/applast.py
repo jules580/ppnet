@@ -50,8 +50,8 @@ def getresults2(param4):
 	
 	test=DataReceive[tester]
 	Scenario=DataReceive[scenario]
-	#del DataVector[param4]
-	#DataVector.insert(param4,"")
+	del DataVector[param4]
+	DataVector.insert(param4,"")
 
 	
 	task= celery.send_task('mytask.get', args=[Scenario,test], kwargs={})
@@ -59,8 +59,7 @@ def getresults2(param4):
 	iden_num+=1
 	iden[iden_num]=task.id
 	
-	Task={"request_id":str(iden_num)}
-	return json.dumps(Task,sort_keys=True,indent=4)
+	return "Request Send:"+str(iden_num)+":"
 	
 @app.route('/requestResult/matrix/<int:param2>')
 def getresultsmatrix2(param2):
@@ -83,8 +82,7 @@ def getresultsmatrix2(param2):
 	iden_matrix_num+=1
 	idenmatrix[iden_matrix_num]=task.id
 	
-	Task={"request_id":str(iden_matrix_num)}
-	return json.dumps(Task,sort_keys=True,indent=4)
+	return "Request Send:"+str(iden_matrix_num)+":"
     
 @app.route('/getresult/vector/<int:param3>')
 def check(param3):
@@ -95,12 +93,11 @@ def check(param3):
 	datares="Pending"
 	res= celery.AsyncResult(identi)
 	if res.state==states.PENDING:
-		Task={"status":res.state}
-		return json.dumps(Task,sort_keys=True,indent=4)	
+		return res.state	
 	else:
 		return str(res.result)
-	#del iden[param3]
-	#iden.insert(param3,"")
+	del iden[param3]
+	iden.insert(param3,"")
 @app.route('/getresult/matrix/<int:param3>')
 def check2(param3):
 	global idenmatrix
@@ -109,8 +106,7 @@ def check2(param3):
    
 	res= celery.AsyncResult(identi)
 	if res.state==states.PENDING:
-		 Task={"status":res.state}
-		 return json.dumps(Task,sort_keys=True,indent=4)	
+		return res.state	
 	else:
 		return str(res.result)
 	#del idenmatrix[param3]
@@ -144,11 +140,7 @@ def echo():
 	URL=Receive_data[url]
     #r=requests.get('http://192.168.2.77:')
 	r=requests.get(listTest[content[2]]+"/gatling/"+content[1]+"/start")     
-	js=json.loads(r.content)
-	Status=js["status"]
-	Details=js["details"]
-	Task={"request_id":str(i),"status":str(Status),"details":str(Details)}
-	return json.dumps(Task,sort_keys=True,indent=4) 
+	return "You said: "+str(i)+" "+str(r.content)  
 	#+str(i)+" "+str(r.content)  
     #
     #return str(r.content)
@@ -184,12 +176,8 @@ def echo2():
 	Receive_data_vector=DataVector[index]
 	URL=Receive_data_vector[url]
 	r=requests.get(listTest[content[2]]+"/gatling/"+content[1]+"/start")
-	js=json.loads((r.content))
-	Status=js['status']
-	Details=js['details']
+	return "You said: "+str(k)+" "+str(r.content)
 
-	Task={"request_id":str(k),"status":str(Status),"details":str(Details)}
-	return json.dumps(Task,sort_keys=True, indent=4)
    
 @app.route('/test/conf/matrix/<testerId>')
 def run(testerId):
@@ -267,24 +255,20 @@ def checks(id):
         r=requests.get(urlsend)
         #return "hello"+Scenario
 	js= json.loads((r.content))
-	Task={"scenario":Scenario,"status":js['status']}
-	return json.dumps(Task,sort_keys=True,indent=4)
-@app.route('/checkstatus/vector/<int:id>')
-def checks2(id):
+	return "Scenario"+Scenario+" is "+js['status']
+@app.route('/checkstatus/vector/<Scenario>')
+def checks2(Scenario):
         global listTest
         global DataVector
         global k
-        DataReceive=DataVector[id]
-        tester=str(id)+"tester"
+        DataReceive=DataVector[k]
+        tester=str(k)+"tester"
         test=DataReceive[tester]
-        scenario=str(id)+"scenario"
-	Scenario=DataReceive[scenario]
         urlsend=listTest[test]+"/gatling/"+Scenario
         r=requests.get(urlsend)
         #return "hello"+Scenario
         js= json.loads((r.content))
-        Task={"scenario":Scenario,"status":js['status']}
-	return json.dumps(Task,sort_keys=True,indent=4)
+        return "Scenario"+Scenario+" is "+js['status']
 
 @app.route('/getreports/matrix/<int:id>')
 def getreports(id):
@@ -304,34 +288,25 @@ def getreports(id):
 	tabjs=js['reports']
 	index=len(tabjs)-1
         tab=" "
-	for p in range(0,index-1):
-		tab+=tabjs[p]+", "
-	tab+=tabjs[index]
-	Task={"Tab":[tab]}
-	return json.dumps(Task,sort_keys=True,indent=4)
-@app.route('/getreports/vector/<int:id>')
-def getreports2(id):
+	for p in range(0,index):
+		tab+=" "+tabjs[p]+" "
+	return "List Reports:"+tab
+
+@app.route('/getreports/vector/<Scenario>')
+def getreports2(Scenario):
         global listTest
         global DataVector
         global k
-        DataReceive=DataVector[id]
-        tester=str(id)+"tester"
+        DataReceive=DataVector[k]
+        tester=str(k)+"tester"
         test=DataReceive[tester]
-	scenario=str(id)+"scenario"
-	ScenarioData=DataReceive[scenario]
-	ScenarioTab=ScenarioData.split('.')
-	Scenario=ScenarioTab[1]
         urlresult=listTest[test]+"/gatling/"+Scenario+"/reports"
         r=requests.get(urlresult)
         js=json.loads((r.content))
         tabjs=js['reports']
         index=len(tabjs)-1
-	tab=" "
-	for l in range(0,index-1):
-		tab+=tabjs[l]+","
-        tab+=tabjs[index]
-	Task={"Tab":[str(tab)]}
-        return json.dumps(Task,sort_keys=True, indent=4)
+        return "Last Reports"+tabjs[0]
+        
 @app.route('/test', methods=["PUT","POST"])
 def new():
 	JsonData=json.loads(json.dumps(request.get_json(force=True)))
