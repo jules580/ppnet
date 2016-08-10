@@ -2,8 +2,14 @@ import os
 import requests
 import time
 import json
+from flask import Flask, request, send_file
+import json
+import requests
+import time
+import subprocess
+import requests, zipfile, io
 from flask import jsonify
-from flask import Flask, request
+from flask import Flask, request, send_file, send_from_directory
 from flask import url_for
 from worker import celery
 from celery.result import AsyncResult
@@ -18,7 +24,7 @@ SendVector=True
 testreceive=""
 testreceivevector=""
 env=os.environ
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 iden={}
 idenmatrix={}
 iden_num=0
@@ -98,7 +104,15 @@ def check(param3):
 		Task={"status":res.state}
 		return json.dumps(Task,sort_keys=True,indent=4)	
 	else:
-		return str(res.result)
+		zip_file_url=res.result
+		r = requests.get(zip_file_url)
+		z = zipfile.ZipFile(io.BytesIO(r.content))
+		z.extractall()
+	        Nametab=zip_file_url.split('s/')
+		Name=Nametab[1]
+		subprocess.call(["zip","-r",Name+"/test.zip",Name ])
+        	return send_file(Name+'/test.zip')
+
 	#del iden[param3]
 	#iden.insert(param3,"")
 @app.route('/getresult/matrix/<int:param3>')
@@ -112,7 +126,15 @@ def check2(param3):
 		 Task={"status":res.state}
 		 return json.dumps(Task,sort_keys=True,indent=4)	
 	else:
-		return str(res.result)
+		zip_file_url=res.result
+                r = requests.get(zip_file_url)
+                z = zipfile.ZipFile(io.BytesIO(r.content))
+                z.extractall()
+                Nametab=zip_file_url.split('s/')
+                Name=Nametab[1]
+                subprocess.call(["zip","-r",Name+"/test.zip",Name ])
+                return send_file(Name+'/test.zip')
+
 	#del idenmatrix[param3]
 	#idenmatrix.insert(param3,"")	
 		

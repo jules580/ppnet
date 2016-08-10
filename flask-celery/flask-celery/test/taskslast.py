@@ -3,12 +3,8 @@ import time
 import json
 import requests
 import sys
-import zipfile
-import io
-import subprocess
 from celery import Celery
-
-listTest={"test": "http://192.168.2.76:7070","test2":"http://192.168.2.77:7070" } 
+listTest={"test": "http://192.168.2.76:7070" } 
 env=os.environ
 CELERY_BROKER_URL=env.get('CELERY_BROKER_URL','redis://localhost:6379'),
 CELERY_RESULT_BACKEND=env.get('CELERY_RESULT_BACKEND','redis://localhost:6379')
@@ -63,10 +59,7 @@ def get(Scenario,test):
 			urlgets=listTest[test]+"/gatling/downloads/"+Name
 			requests.get(urlgets)
 			re=requests.get(urlget)
-			z = zipfile.ZipFile(io.BytesIO(re.content))
-			z.extractall()
-			return str(urlget)
-			
+			return str(re.content)
 			sys.exit(0)
 		#	Datacontent=str(re.content)
 			#break
