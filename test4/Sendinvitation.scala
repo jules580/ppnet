@@ -12,19 +12,19 @@ object SendInvitation2 extends Trait{
 		val sendinvitation2=exec(feed(feeder))
 		.exec(
 		http("Rooms Infos")
-			.options("/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/invite?access_token=${token}")
+			.options(url+"/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/invite?access_token=${token}")
 			.headers(headers_11)
 			.resources(http("Send Invitation")
-			.post("/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/invite?access_token=${token}")
+			.post(url+"/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/invite?access_token=${token}")
 			.headers(headers_12)
 			.body(StringBody("""{"user_id":"${invite}"}"""))
 			.check(status.is(200)),
-            http("f4c371 image")
+           /* http("f4c371 image")
 			.get("http://" + uri1 + ":8081/img/f4c371.png")
 			.headers(headers_63)
-			.check(status.is(304)),
+			.check(status.is(304))*/
 				http("Send Invitation2")
-			.post("/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/invite?access_token=${token}")
+			.post(url+"/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/invite?access_token=${token}")
 			.headers(headers_12)
 			.body(StringBody("""{"user_id":"${login}:matrix.allmende.io"}"""))
 			.check(jsonPath("$.error").saveAs("error")))

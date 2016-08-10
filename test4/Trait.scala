@@ -363,7 +363,7 @@ val headers_9 = Map(
 		"Connection" -> "keep-alive",
 		"If-Modified-Since" -> "Wed, 13 Jul 2016 07:02:30 GMT",
 		"If-None-Match" -> "5384993-460-Wed Jul 13 2016 09:02:30 GMT+0200 (CEST)")
-    val uri1 = "0.0.0.0"
+    
 val headers_46 = Map(
 		"Accept" -> "image/webp,image/*,*/*;q=0.8",
 		"Accept-Encoding" -> "gzip, deflate, sdch",
@@ -423,4 +423,4 @@ val headers_46 = Map(
 		   val uri2 = "https://matrix.org/_matrix/client/r0/login"
 	}
 	object Trait extends Trait{
-	} 
+} 

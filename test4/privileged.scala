@@ -8,15 +8,15 @@
  import Trait._
 object Privileged2 extends Trait{
 	val privileged2=exec(http("Info Privileged")
-			.options("/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/state/m.room.power_levels/?access_token=${token}")
+			.options(url+"/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/state/m.room.power_levels/?access_token=${token}")
 			.headers(headers_13)
 			.resources(http("Chose Privileged")
-			.put("/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/state/m.room.power_levels/?access_token=${token}")
+			.put(url+"/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/state/m.room.power_levels/?access_token=${token}")
 			.headers(headers_16)
 			.body(RawFileBody("RecordedSimulateCreatePrivateRoomVector_0055_request.txt"))
 			.check(jsonPath("$.event_id").transform(_.split(":")(0).toString).saveAs("Event_Id_Power_Level"))
 			.check(status.is(200)),
-            http("Setting Image")
+            /*http("Setting Image")
 			.get("http://" + uri1 + ":8081/img/settings.svg")
 			.headers(headers_26)
 			.check(status.is(304)),
@@ -27,9 +27,9 @@ object Privileged2 extends Trait{
             http("search image")
 			.get("http://" + uri1 + ":8081/img/search.svg")
 			.headers(headers_31)
-			.check(status.is(304)),
+			.check(status.is(304)),*/
             http("Presence User")
-			.get("/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1539_1237_764_7_1_2&access_token=${token}")
+			.get(url+"/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1539_1237_764_7_1_2&access_token=${token}")
 			.headers(headers_14)
 			.check(status.is(200)))
 			.check(status.is(200)))

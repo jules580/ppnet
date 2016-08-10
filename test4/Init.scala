@@ -27,10 +27,8 @@ import Trait._
 			.check(status.is(200)))
 		.pause(18)
 		.exec(http("login page")
-			.get("/_matrix/client/r0/login?")
+			.get(url+"/_matrix/client/r0/login?")
 			.headers(headers_0)
 			.check(status.is(200)))
 		.pause(7)
-		}
-		
-
+}

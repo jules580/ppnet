@@ -6,19 +6,19 @@ import io.gatling.jdbc.Predef._
 import Trait._
 object Param3 extends Trait{
 	val param2= exec(http("Enter Room")
-				 .get("/_matrix/client/r0/rooms/${table}%3Amatrix.allmende.io/messages?from=s1533_1236_764_7_1_2&limit=20&dir=b&access_token=${token}")
+				 .get(url+"/_matrix/client/r0/rooms/${table}%3Amatrix.allmende.io/messages?from=s1533_1236_764_7_1_2&limit=20&dir=b&access_token=${token}")
 		.headers(headers_14)
 		
 			.resources(
             http("Event Room")
-			.get("/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1538_1236_764_7_1_2&access_token=${token}")
+			.get(url+"/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1538_1236_764_7_1_2&access_token=${token}")
 			.headers(headers_14)
 			.check(status.is(200)),
             http("Time Room")
-			.get("/_matrix/client/r0/rooms/${table}%3Amatrix.allmende.io/messages?from=t1-1532_1236_764_7_1_2&limit=20&dir=b&access_token=${token}")
+			.get(url+"/_matrix/client/r0/rooms/${table}%3Amatrix.allmende.io/messages?from=t1-1532_1236_764_7_1_2&limit=20&dir=b&access_token=${token}")
 			.headers(headers_14)
-			.check(status.is(200)),
-			http("Camera Image")
+			.check(status.is(200)))
+			/*http("Camera Image")
 			.get("http://" + uri1 + ":8081/img/camera.svg")
 			.headers(headers_50)
 			.check(status.is(304)),
@@ -29,7 +29,7 @@ object Param3 extends Trait{
             http("tick image")
 			.get("http://" + uri1 + ":8081/img/tick.svg")
 			.headers(headers_52)
-			.check(status.is(304)))
+			.check(status.is(304)))*/
 			.check(status.is(200)))
 		
 			

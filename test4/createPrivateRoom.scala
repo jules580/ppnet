@@ -8,22 +8,22 @@ import io.gatling.jdbc.Predef._
 import Trait._
 object CreatePrivateRoom2 extends Trait{
 	val createprivateroom2=exec(http("create Rooms")
-			.options("/_matrix/client/r0/createRoom?access_token=${token}")
+			.options(url+"/_matrix/client/r0/createRoom?access_token=${token}")
 			.headers(headers_11)
 			.resources(http("Rooms request")
-			.post("/_matrix/client/r0/createRoom?access_token=${token}")
+			.post(url+"/_matrix/client/r0/createRoom?access_token=${token}")
 			.headers(headers_12)
 			.body(RawFileBody("RecordedSimulateCreatePrivateRoomVector_0036_request.txt"))
 			.check(jsonPath("$.room_id").transform(_.split(':')(0).toString).saveAs("tables")),
             http("Sync filter1")
-			.get("/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1534_1236_764_7_1_2&access_token=${token}")
+			.get(url+"/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1534_1236_764_7_1_2&access_token=${token}")
 			.headers(headers_14)
 			.check(status.is(200)),
             http("Sync Filter2")
-			.get("/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1537_1236_764_7_1_2&access_token=${token}")
+			.get(url+"/_matrix/client/r0/sync?filter=2&timeout=30000&since=s1537_1236_764_7_1_2&access_token=${token}")
 			.headers(headers_14)
-			.check(status.is(200)),
-            http("admin image")
+			.check(status.is(200)))
+            /*http("admin image")
 			.get("http://" + uri1 + ":8081/img/admin.svg")
 			.headers(headers_39)
 			.check(status.is(304)),
@@ -54,7 +54,8 @@ object CreatePrivateRoom2 extends Trait{
             http("call image")
 			.get("http://" + uri1 + ":8081/img/call.svg")
 			.headers(headers_46)
-			.check(status.is(304)))
+			//.check(status.is(304)))
+*/
 			.check(status.is(200)))
 			.exec(session =>{
 				
