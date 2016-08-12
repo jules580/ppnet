@@ -1,0 +1,1 @@
+{"password":"TY2AwMNG5ASRY0+lz2mjem0l33o=","ttl":3600,"uris":["turn:matrix.allmende.io:3478?transport=udp","turn:matrix.allmende.io:3478?transport=tcp"],"username":"1468930533:@test13:matrix.allmende.io"}

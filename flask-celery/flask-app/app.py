@@ -168,9 +168,14 @@ def echo():
 	r=requests.get(listTest[content[2]]+"/gatling/"+content[1]+"/start")     
 	js=json.loads(r.content)
 	Status=js["status"]
-	Details=js["details"]
-	Task={"request_id":str(i),"status":str(Status),"details":str(Details)}
-	return json.dumps(Task,sort_keys=True,indent=4) 
+	if Status!="failed":
+		Details=js["details"]	
+		Task={"request_id":str(i),"status":str(Status),"details":str(Details)}
+		return json.dumps(Task,sort_keys=True,indent=4) 
+	else:
+		Message=js["message"]
+		Task={"status":Status,"details":Message}
+		return json.dumps(Task,sort_keys=True, indent=4)
 	#+str(i)+" "+str(r.content)  
     #
     #return str(r.content)
@@ -208,11 +213,15 @@ def echo2():
 	r=requests.get(listTest[content[2]]+"/gatling/"+content[1]+"/start")
 	js=json.loads((r.content))
 	Status=js['status']
-	Details=js['details']
+	if Status!="failed":
+		Details=js['details']
 
-	Task={"request_id":str(k),"status":str(Status),"details":str(Details)}
-	return json.dumps(Task,sort_keys=True, indent=4)
-   
+		Task={"request_id":str(k),"status":str(Status),"details":str(Details)}
+		return json.dumps(Task,sort_keys=True, indent=4)
+   	else:
+		Message=js['message']
+		Task={"status":Status,"details":Message}
+		return json.dumps(Task,sort_keys=True, indent=4)
 @app.route('/test/conf/matrix/<testerId>')
 def run(testerId):
  
@@ -326,9 +335,12 @@ def getreports(id):
 	tabjs=js['reports']
 	index=len(tabjs)-1
         tab=" "
-	for p in range(0,index-1):
-		tab+=tabjs[p]+", "
-	tab+=tabjs[index]
+	if index>=0:
+		for p in range(0,index-1):
+			tab+=tabjs[p]+", "
+		tab+=tabjs[index]
+	else:
+		tab+= "No simulation"
 	Task={"Tab":[tab]}
 	return json.dumps(Task,sort_keys=True,indent=4)
 @app.route('/getreports/vector/<int:id>')
@@ -349,9 +361,12 @@ def getreports2(id):
         tabjs=js['reports']
         index=len(tabjs)-1
 	tab=" "
-	for l in range(0,index-1):
-		tab+=tabjs[l]+","
-        tab+=tabjs[index]
+	if index>=0:
+		for l in range(0,index-1):
+			tab+=tabjs[l]+","
+       			tab+=tabjs[index]
+	else:
+		tab+=" No simulation"
 	Task={"Tab":[str(tab)]}
         return json.dumps(Task,sort_keys=True, indent=4)
 @app.route('/test', methods=["PUT","POST"])

@@ -1,0 +1,1 @@
+{"user":"testrse","password":"testre","type":"m.login.password"}

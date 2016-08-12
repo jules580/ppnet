@@ -1,0 +1,1 @@
+{"user_id":"@test10:matrix.allmende.io"}
