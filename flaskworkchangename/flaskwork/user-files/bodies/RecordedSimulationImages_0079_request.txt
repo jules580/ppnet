@@ -1,0 +1,1 @@
+{"username":"test01","password":"test01","bind_email":true}

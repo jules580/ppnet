@@ -1,0 +1,1 @@
+{"visibility":"private","invite":["@test02:exemple.org"]}

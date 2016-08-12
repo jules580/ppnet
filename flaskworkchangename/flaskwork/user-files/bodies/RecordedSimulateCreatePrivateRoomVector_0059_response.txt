@@ -1,0 +1,1 @@
+{"account_data":{"events":[]},"next_batch":"s1539_1238_764_7_1_2","presence":{"events":[{"content":{"last_active_ago":90520,"presence":"unavailable"},"sender":"@test04:matrix.allmende.io","type":"m.presence"}]},"rooms":{"invite":{},"join":{},"leave":{}}}
