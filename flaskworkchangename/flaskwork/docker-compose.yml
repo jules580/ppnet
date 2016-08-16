@@ -10,6 +10,6 @@ services:
     ports:
       - "7070:8080"
     environment:
-      - Jsonpoint=http://192.168.2.77:1010/test/conf/vector/test
+      - Jsonpoint=http://192.168.2.77:1010/test/conf/matrix/test
       - Url_Matrix=http://192.168.2.77:8008
 

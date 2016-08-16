@@ -26,7 +26,7 @@ object SendInvitation2 extends Trait{
 				http("Send Invitation2")
 			.post(url+"/_matrix/client/r0/rooms/${tables}%3Amatrix.allmende.io/invite?access_token=${token}")
 			.headers(headers_12)
-			.body(StringBody("""{"user_id":"@${login}:matrix.allmende.io"}"""))
+			.body(StringBody("""{"user_id":"${login}:matrix.allmende.io"}"""))
 			.check(jsonPath("$.error").saveAs("error")))
 			
 			.check(status.is(200)))

@@ -1,35 +1,40 @@
-package tai.vector
- 
+
+
+package tai.matrix
 import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
-import Trait._
-object SendMessage2 extends Trait {
+import Init_Matrix2._
+import Login_Matrix2._
+import Join_Matrix2._
+import Typing_Matrix2._
+import SendMessage_Matrix2._
+import Trait_Matrix._
 
-			val feeder=csv("answer.csv").random
-			val sendmessage2=exec(feed(feeder))
-			.exec(http("Wait Message")
-			.options(url+"/_matrix/client/r0/rooms/${table}%3Amatrix.allmende.io/send/m.room.message/m1468424657926.0?access_token=${token}")
-			.headers(headers_13)
-			.resources(http("Message Send ")
-			.put(url+"/_matrix/client/r0/rooms/${table}%3Amatrix.allmende.io/send/m.room.message/m1468424657926.0?access_token=${token}")
-			.headers(headers_16)
-			.body(StringBody("""{"msgtype":"m.text","body":"${answer}"}"""))
-			.check(status.is(200))
-			.check(jsonPath("$.event_id").saveAs("Event_Id")),
-            http("End Typing")
-			.put(url+"/_matrix/client/r0/rooms/${table}%3Amatrix.allmende.io/typing/%40${login}%3Amatrix.allmende.io?access_token=${token}")
-			.headers(headers_16)
-			.body(RawFileBody("RecordedSimulateSendMessageVector_0068_request.txt"))
-			.check(status.is(200)),
-            http("Event message")
-			.get(url+"/_matrix/client/r0/sync?filter=0&timeout=30000&since=s1548_1239_766_7_1_2&access_token=${token}")
-			.headers(headers_14)
-			.check(status.is(200)))
-			.check(status.is(200)))
-			.exec(session =>{
-				println("session VB"+session)
-				session
-			})
-		}
+class SendMessage extends Simulation {
+
+	val httpProtocol = http
+		.baseURL("http://0.0.0.0:3030")
+		.inferHtmlResources(WhiteList(), BlackList())
+		.acceptHeader("application/json, text/plain, */*")
+		.userAgentHeader("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/50.0.2661.102 Chrome/50.0.2661.102 Safari/537.36")
+
+before{
+	println("Simulation of send message matrix will begin")
+}
+after {
+	println("Simulation of send message matrix is stop")
+}
+
+
+
+	
+	setUp(AdminsSendMessageMatrix.admin.inject(
+	rampUsers(10) over (10 seconds)))
+	.assertions(
+	global.responseTime.max.lessThan(50),
+	forAll.failedRequests.count.lessThan(5),
+	details("Send Message").successfulRequests.percent.greaterThan(90))
+	.protocols(httpProtocol)
+}
