@@ -1,0 +1,1 @@
+{"preset":"private_chat","initial_state":[{"content":{"guest_access":"can_join"},"type":"m.room.guest_access","state_key":"","visibility":"private"}]}

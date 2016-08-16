@@ -1,0 +1,1 @@
+{"url":"mxc://matrix.allmende.io/NWeIzvRArVFPtnBDgWpmOuNN","msgtype":"m.image","body":"titr2e.png","info":{"size":125023,"w":710,"h":501,"mimetype":"image/png"}}

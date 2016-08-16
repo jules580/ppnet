@@ -1,0 +1,1 @@
+{"chunk":[{"content":{"user_ids":[]},"room_id":"!RtLuZjBtZOUzciQuzE:matrix.allmende.io","type":"m.typing"}],"end":"s1198_358_32_1_1_1","start":"s1198_358_31_1_1_1"}
