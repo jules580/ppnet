@@ -1,3 +1,4 @@
+
 #! /usr/bin/python
 
 from flask import Flask
@@ -9,6 +10,9 @@ import psutil
 import subprocess
 import zipfile
 import re
+from flask import Flask, jsonify, request
+from flask.views import MethodView
+from flasgger import Swagger
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -27,7 +31,39 @@ _GATLING_PATH = app.config['GATLING_PATH']
 _SIM_PATH = app.config['SIM_PATH']
 _REPORT_PATH = app.config['REPORT_PATH']
 _TMP_PATH = app.config['TMP_PATH']
+app.config['SWAGGER'] = {
+    "swagger_version": "2.0",
+    # headers are optional, the following are default
+    # "headers": [
+    #     ('Access-Control-Allow-Origin', '*'),
+    #     ('Access-Control-Allow-Headers', "Authorization, Content-Type"),
+    #     ('Access-Control-Expose-Headers', "Authorization"),
+    #     ('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS"),
+    #     ('Access-Control-Allow-Credentials', "true"),
+    #     ('Access-Control-Max-Age', 60 * 60 * 24 * 20),
+    # ],
+    # another optional settings
+    # "url_prefix": "swaggerdocs",
+    # "subdomain": "docs.mysite,com",
+    # specs are also optional if not set /spec is registered exposing all views
+    "specs": [
+        {
+            "version": "0.0.1",
+            "title": "Api v1",
+            "endpoint": 'v1_spec',
+            "route": '/v1/spec',
 
+            # rule_filter is optional
+            # it is a callable to filter the views to extract
+
+            # "rule_filter": lambda rule: rule.endpoint.startswith(
+            #    'should_be_v1_only'
+            # )
+        }
+    ]
+}
+
+swagger = Swagger(app)
 
 def zipdir(path, zip):
     os.chdir(_REPORT_PATH)
@@ -84,7 +120,7 @@ def sim_action(simulation, action):
     if action == 'start' or action == 'stop':
 
         if action == 'start':
-            p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh', '-nr',
+            p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh','-nr',
                                   '-s', simulation])
             return True
 
@@ -134,6 +170,7 @@ def reports(simulation, action='find', report=None):
                     zipf = zipfile.ZipFile(zippedfile, 'w')
                     zipdir(report, zipf)
                     zipf.close()
+		   # subprocess.call(["cp","-f",_GATLING_PATH+"/"+report+'.zip',"/app/"+report+'.zip'])
                     return app.send_static_file(report + '.zip')
                 except Exception as e:
                     return e
@@ -230,7 +267,314 @@ def gatling_simulation_reports(simulation):
 def gatling_simulation_reports_download(simulation, report):
     """Returns a report zip file"""
     return reports(simulation, action='download', report=report)
+@app.route('/gatling/downloads/<report>')
+def downloads(report):
+	subprocess.call(["cp","-f",_GATLING_PATH+"/"+report+'.zip',"/app/"+report+'.zip'])
+	return 'Done'
+@app.route('/loads')
+def loads():
+	subprocess.call(["sh","/opt/gatling/user-files/data/Vector.sh"])
 
+class SimulationAPI(MethodView):
+    def get(self,simulation_name):
+        """
+        this methods will launch the simulation of the client test request
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: simulation_name
+            in: path
+            description: it is the name of the simulation we want to start
+            required: true
+            type: string
+            format: utf8
+        responses:
+          201:
+            description:  this method will return the status of this request with some details
+            schema:
+                id: status
+                type: object
+                required:
+                    - status
+                    - details
+                properties:
+                    status:
+                        type: string
+                        description: this is the status of the simulation.It can be sucess or fail
+                        default: Sucess
+                    details:
+                        type: string
+                        description: this is the details about the sucess or the fail request
+                        default: true
+        """
+        data= {
+            [ {"user":"test","team":team_id}
+            ]
+        }
+        return jsonify(data)
+
+class SimulationsAPI(MethodView):
+    def get(self,simulation_name,action):
+        """
+        this methods will stop the simulation of the client test request
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: simulation_name
+            in: path
+            description: it is the name of the simulartion we want to start
+            required: true
+            type: string
+            format: utf8
+	  - name: action
+	    in : path
+	    description: action
+	    required: true
+	    type: string
+	    format: utf8	
+        responses:
+          201:
+            description:  this method will return the status of this request with some details
+            schema:
+                id: status
+                type: object
+                required:
+                    - status
+                    - message
+                properties:
+                    status:
+                        type: string
+                        description: this is the status of the simulation.It can be sucess or fail
+                        default: Sucess
+                    message:
+                        type: string
+                        description: this is the detail of the succes or not of the request
+                        default: true
+        """
+        data= {
+            [ {"user":"test","team_id":team}
+            ]
+        }
+        return jsonify(data)
+
+class SimulationsCheckAPI(MethodView):
+    def get(self,simultion_name):
+        """
+        this methods return the status of the simultion associate with the client test request
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: simulation_name
+            in: path
+            description: It is the name of the scenario we want to chek the status
+            required: true
+            type: string
+            format: utf8
+        responses:
+          201:
+            description:  this methods will return the status of the simulations
+            schema:
+                id: Status
+                type: object
+                required:
+                    - Status
+                properties:
+                    Status:
+                        type: string
+                        description: this is the status of the simulation.It can be stopped or running
+                        default: running
+        """
+        data= {
+            [ {"user":"name","team":team_id}
+            ]
+        }
+        return jsonify(data)
+
+class SimulationsReportAPI(MethodView):
+    def get(self,simulation_name):
+        """
+        this metods will give the list of all report_id(Name of the scenario+timestap) which have the same scenario
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: simulation_name
+            in: path
+            description: It is the name of the scenaio the client wan to launch
+            required: true
+            type: string
+            format: utf8
+        responses:
+          201:
+            description:  this will give the list of all report_id (Name of the scenario+timestap)
+            schema:
+                id: Report_List
+                type: array
+                items:
+                    id: reports
+                    required:
+                        - ListReport
+                    properties:
+                        ListReport:
+                            type: string
+                            description: it is the list of all simulation name that have the same scenario in the launch
+                            default: [loginmatrix-1471434838433]
+        """
+        data= {
+            [ {"user":"name","team":team_id}
+            ]
+        }
+        return jsonify(data)
+
+class SimulationsReportIdAPI(MethodView):
+    def get(self,simulation_name,report_id):
+        """
+        this methods will zip the file in the report-id directory and will send the zip to the client 
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: simulation_name
+            in: path
+            description: it is the name of the simulation the client want to launch
+            required: true
+            type: string
+            format: utf8
+          - name: report_id
+            in: path
+            description: this is the id of the fiolder of the simulation we want to downloads
+            required: true
+            type: string
+            format: utf8
+        responses:
+          201:
+            description:  this methods allow us to download the report-id zipfile
+            schema:
+                id: Zipfile
+                type: object
+                required:
+                    - Zip
+                properties:
+                    Zip:
+                        type: string
+                        description: this is a file which contain all graphe and the simulation log
+        """
+        data= {
+            [ {"user":"name","team":team_id}
+            ]
+        }
+        return jsonify(data)
+
+class DownloadAPI(MethodView):
+    def get(self,report_id):
+        """
+        this methods fix one error in the previous methods because the zip file is store in the wrong path 
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: report_id
+            in: path
+            description: this is the id of the folder of the simulation we want to downloads
+            required: true
+            type: string
+            format: utf8
+        responses:
+          201:
+            description:  the change have been done
+            schema:
+                id: Zipfile
+                type: object
+                required:
+                    - Done
+                properties:
+                    Done:
+                        type: string
+                        description: the change have been done
+        """
+
+        data= {
+            [ {"user":"name","team":team_id}
+            ]
+        }
+        return jsonify(data)
+class LoadsAPI(MethodView):
+    def get(self):
+        """
+        this methods will report the list of all user associate with thei token and the name of the room that they have access
+        ---
+        tags:
+          - simulation
+        responses:
+          201:
+            description:  the change have been done
+            schema:
+                id: Zipfile
+                type: object
+                required:
+                    - Done
+                properties:
+                    Done:
+                        type: string
+                        description: the change have been done
+        """
+        data= {
+            [ {"user":"name", "team":team_id}
+            ]
+        }
+
+
+#views= SimulationAPI.as_view('simulation_name_start')
+#app.add_url_rule(
+ #   '/gatling/<string:simulation_name>/start',
+  #  view_func=views,
+   # methods=["GET"],
+    #endpoint="simulation_name_start")
+
+views2= SimulationsAPI.as_view('simulation_name_stop')
+app.add_url_rule(
+    '/gatling/<string:simulation_name>/<string:action>',
+    view_func=views2,
+    methods=["GET"],
+    endpoint="simulation_name_stop")
+
+views3= SimulationsCheckAPI.as_view('simulation_check')
+app.add_url_rule(
+    '/gatling/<string:simulation_name>',
+    view_func=views3,
+    methods=["GET"],
+    endpoint="simulation_check")
+
+views4= SimulationsReportAPI.as_view('simulation_report')
+app.add_url_rule(
+    '/gatling/<string:simulation_name>/reports',
+    view_func=views4,
+    methods=["GET"],
+    endpoint="simulation_report")
+
+views5= SimulationsReportIdAPI.as_view('simulation_report_id')
+app.add_url_rule(
+    '/gatling/<string:simulation_name>/reports/<string:report_id>',
+    view_func=views5,
+    methods=["GET"],
+    endpoint="simulation_report_id")
+# you can still use @app.route if you want
+views6= DownloadAPI.as_view('simulation_download')
+app.add_url_rule(
+    '/gatling/downloads/<string:report_id>',
+    view_func=views6,
+    methods=["GET"],
+    endpoint="simulation_download")
+views7= LoadsAPI.as_view('simulation_loads')
+app.add_url_rule(
+    '/gatling/loads',
+    view_func=views7,
+    methods=["GET"],
+    endpoint="simulation_loads"
+    )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
