@@ -53,6 +53,8 @@ ENV GATLING_HOME /opt/gatling
 
 COPY . /app
 WORKDIR /app
+RUN apt-get install -y curl
 RUN pip install -r requirements.txt
+RUN pip install flasgger
 ENTRYPOINT ["python"]
 CMD ["app.py"]
