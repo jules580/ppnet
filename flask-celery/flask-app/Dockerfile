@@ -17,7 +17,7 @@ WORKDIR /flask-app
 
 # install requirements
 RUN pip install -r requirements.txt
-
+RUN pip install flasgger
 # expose the app port
 EXPOSE 5000
 
