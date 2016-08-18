@@ -1,0 +1,1 @@
+Global: max of response time is less than 50 : false

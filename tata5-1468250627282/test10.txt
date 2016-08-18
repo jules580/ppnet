@@ -1,0 +1,3 @@
+> min response time                                  60006 (OK=-      KO=60006 )
+> max response time                                  60008 (OK=-      KO=60008 )
+> mean response time                                 60007 (OK=-      KO=60007 )

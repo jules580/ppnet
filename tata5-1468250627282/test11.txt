@@ -1,0 +1,4 @@
+> response time 50th percentile                      60007 (OK=-      KO=60007 )
+> response time 75th percentile                      60007 (OK=-      KO=60007 )
+> response time 95th percentile                      60007 (OK=-      KO=60007 )
+> response time 99th percentile                      60007 (OK=-      KO=60007 )

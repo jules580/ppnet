@@ -3,12 +3,12 @@ version: '2'
 services:
 
   gatling:
-    image: vbaer/flaskwork88
+    image: vbaer/flaskname48
     volumes:
       - ./user-files:/opt/gatling/user-files
       - ./user-files/:/app/user-files/
     ports:
-      - "7070:8080"
+      - "8080:8080"
     environment:
       - Jsonpoint=http://192.168.2.77:1010/test/conf/vector/test
       - Url_Matrix=http://192.168.2.77:8008

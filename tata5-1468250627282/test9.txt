@@ -1,0 +1,15 @@
+18:26:28.733 [WARN ] i.g.h.a.ResponseProcessor - Request 'Get' failed: j.u.c.TimeoutException: Request timeout to not-connected after 60000ms
+18:26:30.669 [WARN ] i.g.h.a.ResponseProcessor - Request 'Get' failed: j.u.c.TimeoutException: Request timeout to not-connected after 60000ms
+> j.u.c.TimeoutException: Request timeout to not-connected after      2 (100.0%)
+> j.u.c.TimeoutException: Request timeout to not-connected after      2 (100.0%)
+> j.u.c.TimeoutException: Request timeout to not-connected after      2 (100.0%)
+> min response time                                  60006 (OK=-      KO=60006 )
+> max response time                                  60008 (OK=-      KO=60008 )
+> mean response time                                 60007 (OK=-      KO=60007 )
+> response time 50th percentile                      60007 (OK=-      KO=60007 )
+> response time 75th percentile                      60007 (OK=-      KO=60007 )
+> response time 95th percentile                      60007 (OK=-      KO=60007 )
+> response time 99th percentile                      60007 (OK=-      KO=60007 )
+---- Response Time Distribution ------------------------------------------------
+> j.u.c.TimeoutException: Request timeout to not-connected after      2 (100.0%)
+Global: max of response time is less than 50 : false
