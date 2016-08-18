@@ -181,13 +181,14 @@ def reports(simulation, action='find', report=None ):
 		if simulation in item:
 			lreports.append(item)
 	
-	num = lreports.index(report)
+	#num = lreports.index(report)
+	#num = len(lreports)
 	app.logger.debug('Checking if '
                         + _REPORT_PATH + report + ' exists.')
 	if report:
             report = sanitize(report)
 	    simulation = sanitize(simulation)
-	    p1=subprocess.Popen(["cp","-f","/app/stdout"+simulation+num+".txt",_REPORT_PATH+report])
+	    p1 = subprocess.Popen(["cp","-f","/app/stdout"+simulation+str(lreports.index(report)+1)+".txt",_REPORT_PATH+report])
 	    p1.wait()
             if os.path.exists(_REPORT_PATH + report):
                
@@ -303,6 +304,11 @@ def downloads(report):
 def loads():
 	subprocess.call(["sh","/opt/gatling/user-files/data/Vector.sh"])
 	Task-{"Action":"Done"}
+	return json.dumps(Task, indent=4)
+@app.route('/gatling/analyse')
+def anayse():
+	subprocess.call(["sh","/opt/gatling/user-files/data/test.sh"])
+	Task={"Action":"Done"}
 	return json.dumps(Task, indent=4)
 class SimulationAPI(MethodView):
     def get(self,simulation_name):
