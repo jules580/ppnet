@@ -118,26 +118,9 @@ def sim_action(simulation, action):
     """Starts or stopps a simulation"""
     app.logger.debug('Calling ' + action + ' on ' + simulation)
     if action == 'start' or action == 'stop':
-	simulationtab=simulation.split('.')
-	simulations=simulationtab[2].lower()
-	proca= subprocess.Popen(['ls','/app'], stdout=subprocess.PIPE)
-	outofdata=proca.stdout.read()
-	outtab=outofdata.split('\n')
-	index=len(outtab)
-	#outoftab=[]
-	#for j in range(0,index):
-	#	itemtab=outtab[j]
-	#	if simulations in itemtab: 
-	#		outoftab.append(itemtab)
-	for i in range(0,index):
-		name=simulations+str(i)+".txt"
-		stdoutname="stdout"+name
-		if i!=0 and stdoutname not in outofdata:
-			break
+
         if action == 'start':
-	   
-		
-	    with open("stdout"+name,"wb") as out, open("stderr"+simulationtab[2]+".txt","wb") as err:
+	    with open("stdout.txt","wb") as out, open("stderr.txt","wb") as err:
            	 p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh', '-s', simulation],stdout=out,stderr=err)
             return True
 
@@ -157,7 +140,7 @@ def sim_action(simulation, action):
     return False
 
 
-def reports(simulation, action='find', report=None ):
+def reports(simulation, action='find', report=None):
     """Finds/lists a list of reports for simulation, default action is
     to find the reports, can be set to:
         -find
@@ -176,19 +159,11 @@ def reports(simulation, action='find', report=None ):
 
     if action == 'download':
         simulation = simulation.lower()
-        simulation = sanitize(simulation)
-	for item in os.listdir(_REPORT_PATH):
-		if simulation in item:
-			lreports.append(item)
-	
-	num = lreports.index(report)
-	app.logger.debug('Checking if '
-                        + _REPORT_PATH + report + ' exists.')
+        app.logger.debug('Checking if '
+                         + _REPORT_PATH + report + ' exists.')
+        subprocess.Popen(["cp","-f","/app/stdout.txt",_REPORT_PATH+report]
 	if report:
             report = sanitize(report)
-	    simulation = sanitize(simulation)
-	    p1=subprocess.Popen(["cp","-f","/app/stdout"+simulation+num+".txt",_REPORT_PATH+report])
-	    p1.wait()
             if os.path.exists(_REPORT_PATH + report):
                
 		app.logger.debug('Found the path, now lets zip it up')
