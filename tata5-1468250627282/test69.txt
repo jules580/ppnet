@@ -1,0 +1,3 @@
+18:24:42.580 [WARN ] i.g.c.ZincCompiler$ - Pruning sources from previous analysis, due to incompatible CompileSetup.
+18:26:28.733 [WARN ] i.g.h.a.ResponseProcessor - Request 'Get' failed: j.u.c.TimeoutException: Request timeout to not-connected after 60000ms
+18:26:30.669 [WARN ] i.g.h.a.ResponseProcessor - Request 'Get' failed: j.u.c.TimeoutException: Request timeout to not-connected after 60000ms

@@ -3,7 +3,12 @@ echo '{ "data":[' >result.txt
 
 awk -F " " '{ if($1!="USER" && $1!="ASSERTION" && $1!="RUN")
 if($8!="KO")
+if ($7="OK")
+print "{\"request\":\""$4"_"$5"\",\"user_id\":\""$3"\",\"status\":\""$7"\"}," 
+else if ($8="OK")
 print "{\"request\":\""$4"_"$5"\",\"user_id\":\""$3"\",\"status\":\""$8"\"}," 
+else
+print "{\"request\":\""$4"_"$5"\",\"user_id\":\""$3"\",\"status\":\""$9"\"}," 
 else
 print "{\"request\":\""$4"\",\"user_id\":\""$3"\",\"details\":\""$9"_"$10"_"$11"_"$12"_"$13"\"},"
 }' simulation.log >> result.txt
@@ -48,11 +53,17 @@ sudo grep -i WARN gatling.txt > test70.txt
 sudo sed "s/'/ /g" test70.txt > test71.txt
  sudo sed 's/:/ /g' test71.txt > test72.txt
 cat test72.txt | sed '1d'> test73.txt
-awk -F " " '{print "{\""$8"\":\""$9"\",status:\""$10"\",\"details\":\""$11"_"$12"_"$13"_"$14"_"$15"_"$16"_"$17"\"},"}' test73.txt>>result.txt
+
+awk -F " " '{ if($11="failed") 
+	print "{\""$8"\":\""$9"_"$10"\",status:\""$11"\",\"details\":\""$12"_"$13"_"$14"_"$15"_"$16"_"$17"_"$18"\"},"
+	else if($10="failed")
+	print "{\""$8"\":\""$9"\",status:\""$10"\",\"details\":\""$11"_"$12"_"$13"_"$14"_"$15"_"$16"_"$17"\"},"
+	else 
+	print "{\""$8"\":\""$9"_"$10"_"$11"\",status:\""$12"\",\"details\":\""$13"_"$14"_"$15"_"$16"_"$17"_"$18"_"$19"\"},"
+	}' test73.txt>>result.txt
 z3=$(cat result.txt)
 echo "${z3%?}" > result.txt
 echo "]" >> result.txt
-cat result.txt
 d=0
 rm -f test9.txt
 rm -f test10.txt
@@ -65,6 +76,11 @@ rm -f test70.txt
 rm -f test71.txt
 rm -f test72.txt
 rm -f test73.txt
+
+sed '/io.gatling.http.resolver/d' result.txt> result2.txt
+rm -f result.txt
+cp -f result2.txt result.txt
+cat result.txt
 if [ "$counter" -ne "$d" ]
 then
 echo "NOK"
