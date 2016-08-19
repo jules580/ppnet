@@ -49,9 +49,9 @@ z2=$( cat result.txt)
 echo "${z2%?}" > result.txt
 echo "]" >> result.txt
 echo '"info":  [' >> result.txt
-sudo grep -i WARN gatling.txt > test70.txt
-sudo sed "s/'/ /g" test70.txt > test71.txt
- sudo sed 's/:/ /g' test71.txt > test72.txt
+grep -i WARN gatling.txt > test70.txt
+sed "s/'/ /g" test70.txt > test71.txt
+sed 's/:/ /g' test71.txt > test72.txt
 cat test72.txt | sed '1d'> test73.txt
 
 awk -F " " '{ if($11="failed") 
