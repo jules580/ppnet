@@ -305,11 +305,11 @@ def loads():
 	subprocess.call(["sh","/opt/gatling/user-files/data/Vector.sh"])
 	Task-{"Action":"Done"}
 	return json.dumps(Task, indent=4)
-@app.route('/analyse/<report>')
-def anayse(report):
-	subprocess.call(["cp","-f","/opt/gatling/user-files/data/jsonresult.sh","/opt/gatling/results/"+report])
+@app.route('/analyse')
+def anayse():
+	#p1=subprocess.call(["cp","-f","/opt/gatling/user-files/data/jsonresult.sh","/opt/gatling/results/"+report])
 	#p1.wait()
-	subprocess.call(["sh","/opt/gatling/results/"+report+"/jsonresult.sh",report],stdout=subprocess.PIPE)
+	subprocess.call(["sh","/opt/gatling/user-files/data/jsonresult.sh"],stdout=subprocess.PIPE)
 	#Task=proc2.stdout.read()
 	Task={"Action":"Done"}
 	return json.dumps(Task, indent=4)
