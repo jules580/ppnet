@@ -60,6 +60,9 @@ def get(Scenario,SourceName):
 	
 			urlget=listTest[SourceName]+"/gatling/"+scenario+"/reports/"+Name
 			requests.get(urlget)
+			urlanalyse=listTest[SourceName]+"/analyse/"+Name
+			reanalyse=requests.get(urlanalyse)
+			requests.get(urlget)
 			urlgets=listTest[SourceName]+"/gatling/downloads/"+Name
 			requests.get(urlgets)
 			re=requests.get(urlget)

@@ -153,6 +153,8 @@ def check(param3):
 		z.extractall()
 	        Nametab=zip_file_url.split('s/')
 		Name=Nametab[1]
+		p1=subprocess.call(["sh","/flask-app/"+Name+"/jsonresult.sh","/flask-app/"+Name])
+		p1.wait()
 		subprocess.call(["zip","-r",Name+"/test.zip",Name ])
         	return send_file(Name+'/test.zip')
 
@@ -175,7 +177,9 @@ def check2(param3):
                 z.extractall()
                 Nametab=zip_file_url.split('s/')
                 Name=Nametab[1]
-                subprocess.call(["zip","-r",Name+"/test.zip",Name ])
+		p1=subprocess.call(["sh","/flask-app/"+Name+"/jsonresult.sh","/flask-app/"+Name])
+                p1.wait()
+		subprocess.call(["zip","-r",Name+"/test.zip",Name ])
                 return send_file(Name+'/test.zip')
 
 	#del idenmatrix[param3]
@@ -371,12 +375,12 @@ def getreports(id):
 	scenarioName=str(id)+"scenarioName"
 	ScenarioData=DataReceive[scenarioName]
 	Scenariotab=ScenarioData.split('.')
-	Scenario=Scenariotab[1]
+	Scenario=Scenariotab[2]
         urlresult=listTest[test]+"/gatling/"+Scenario+"/reports"
 	r=requests.get(urlresult)
 	js=json.loads((r.content))
 	tabjs=js['reports']
-	index=len(tabjs)-1
+	index=len(tabjs)
         tab=" "
 	if index>=0:
 		for p in range(0,index-1):
@@ -397,7 +401,7 @@ def getreports2(id):
 	scenarioName=str(id)+"scenarioName"
 	ScenarioData=DataReceive[scenarioName]
 	ScenarioTab=ScenarioData.split('.')
-	Scenario=ScenarioTab[1]
+	Scenario=ScenarioTab[2]
         urlresult=listTest[test]+"/gatling/"+Scenario+"/reports"
         r=requests.get(urlresult)
         js=json.loads((r.content))
