@@ -275,10 +275,10 @@ def run(testerId):
   global testreceive
   for j in range(i,0,-1):	
 	Receive_data=Data[j]
- 	TargetUrl=str(j)+"testTargetUrl"
+ 	testTargetUrl=str(j)+"testTargetUrl"
  	scenarioName=str(j)+"scenarioName"
-	testSourceUrl=str(j)+"testSourceUrl" 
-   	Tester=Receive_data[testSourceUrl]
+	testSourceName=str(j)+"testSourceName" 
+   	Tester=Receive_data[testSourceName]
          #if tester==testerId:
  
  	 #   k+=1
@@ -288,7 +288,7 @@ def run(testerId):
    		testnum=Receive_data
  		testTargetUrl=Receive_data[testTargetUrl]
    		Scenario=Receive_data[scenarioName]
- 		testreceive={"testTargetUrl": testTargetUrl, "scenarioName": Scenario, "tester": Tester}
+ 		testreceive={"testTargetUrl": testTargetUrl, "scenarioName": Scenario, "testSourceName": Tester}
  		#del Data[j]
 		#Data.insert(j,"")
                 
@@ -306,18 +306,18 @@ def runvector(testerId):
   global testreceivevector
   for j in range(k,0,-1):	
 	Receive_data_vector=DataVector[j]
- 	TargetUrl=str(j)+"testTargetUrl"
+ 	testSourceName=str(j)+"testSourceName"
  	scenarioName=str(j)+"scenarioName"
  	testTargetUrl=str(j)+"testTargetUrl" 
-	TargetVectorUrl=str(j)+"testTargetVectorUrl"
-   	Tester=Receive_data_vector[testTargetUrl]
+	testTargetVectorUrl=str(j)+"testTargetVectorUrl"
+   	Tester=Receive_data_vector[testSourceName]
          #if tester==testerId:
  
  	 #   k+=1
   	if testerId==Tester and SendVector==False:
 		SendVector=True
    		testnum=Receive_data_vector
- 		Url=Receive_data_vector[testTargetUrl]
+ 		Matrix=Receive_data_vector[testTargetUrl]
    		Vector=Receive_data_vector[testTargetVectorUrl]
  		testreceivevector=Matrix+","+Vector
  		#del DataVector[j]
