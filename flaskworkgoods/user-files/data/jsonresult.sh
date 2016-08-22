@@ -47,7 +47,7 @@ grep -i 'For' /opt/gatling/results/$1/gatling.txt | sed '1d' | sed '/^ *For all 
 awk -F " " '{print "{\"type\":\""$1"_"$2"_"$3"\",\"stat\":\""$4"_"$5"_"$6"_"$7"_"$8"_"$9"_"$10"\",""\"param\":"$11",\"status\":\""$13"\"},"}' test14.txt >> result.txt
 z2=$( cat result.txt)
 echo "${z2%?}" > result.txt
-echo "]" >> result.txt
+echo "]," >> result.txt
 echo '"info":  [' >> result.txt
 grep -i WARN /opt/gatling/results/$1/gatling.txt > test70.txt
 sed "s/'/ /g" test70.txt > test71.txt
@@ -55,15 +55,16 @@ sed 's/:/ /g' test71.txt > test72.txt
 cat test72.txt | sed '1d'> test73.txt
 
 awk -F " " '{ if($11="failed") 
-	print "{\""$8"\":\""$9"_"$10"\",status:\""$11"\",\"details\":\""$12"_"$13"_"$14"_"$15"_"$16"_"$17"_"$18"\"},"
+	print "{\""$8"\":\""$9"_"$10"\",\"status\":\""$11"\",\"details\":\""$12"_"$13"_"$14"_"$15"_"$16"_"$17"_"$18"\"},"
 	else if($10="failed")
-	print "{\""$8"\":\""$9"\",status:\""$10"\",\"details\":\""$11"_"$12"_"$13"_"$14"_"$15"_"$16"_"$17"\"},"
+	print "{\""$8"\":\""$9"\","\"status\":\""$10"\",\"details\":\""$11"_"$12"_"$13"_"$14"_"$15"_"$16"_"$17"\"},"
 	else 
-	print "{\""$8"\":\""$9"_"$10"_"$11"\",status:\""$12"\",\"details\":\""$13"_"$14"_"$15"_"$16"_"$17"_"$18"_"$19"\"},"
+	print "{\""$8"\":\""$9"_"$10"_"$11"\",\"status\":\""$12"\",\"details\":\""$13"_"$14"_"$15"_"$16"_"$17"_"$18"_"$19"\"},"
 	}' test73.txt>>result.txt
 z3=$(cat result.txt)
 echo "${z3%?}" > result.txt
 echo "]" >> result.txt
+echo "}" >>result.txt
 d=0
 rm -f test9.txt
 rm -f test10.txt
