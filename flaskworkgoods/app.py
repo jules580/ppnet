@@ -305,14 +305,24 @@ def loads():
 	subprocess.call(["sh","/opt/gatling/user-files/data/Vector.sh"])
 	Task-{"Action":"Done"}
 	return json.dumps(Task, indent=4)
-@app.route('/analyse')
-def anayse():
-	#p1=subprocess.call(["cp","-f","/opt/gatling/user-files/data/jsonresult.sh","/opt/gatling/results/"+report])
+@app.route('/analyse/<report>')
+def anayse(report):
+	subprocess.call(["cp","-f","/opt/gatling/user-files/data/jsonresult.sh","/opt/gatling/results/"+report])
 	#p1.wait()
-	subprocess.call(["sh","/opt/gatling/user-files/data/jsonresult.sh"],stdout=subprocess.PIPE)
-	#Task=proc2.stdout.read()
+	subprocess.call(["sh","/opt/gatling/results/"+report+"/jsonresult.sh",report])
+	subprocess.call(["cp","-f","/app/result.txt","/opt/gatling/results/"+report])	
+	#file = open('/app/result.txt','r')
+
+			#output= subprocess.check_ouput(['cat','/opt/gatling/results/'+report+'/result.txt'])
+#Task=proc2.stdout.read()
 	Task={"Action":"Done"}
 	return json.dumps(Task, indent=4)
+	#return file.read()
+@app.route('/analyseresult/<report>')
+def getanalyse(report):
+	file=open('/app/result.txt','r')
+	return file.read()
+
 class SimulationAPI(MethodView):
     def get(self,simulation_name):
         """
