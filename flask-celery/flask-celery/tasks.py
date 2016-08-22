@@ -36,7 +36,7 @@ def get(Scenario,SourceName):
 	scenario_content=Scenario.split('.')
 	scenario=scenario_content[2]
 	#global Datacontent
-	time.sleep(80)
+	time.sleep(150)
 	for l in range(0,40):
 		url=listTest[SourceName]+"/gatling/"+Scenario
 		res=requests.get(url)
