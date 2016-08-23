@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+  gatling:
+    image: vbaer/flaskname102
+
+    volumes:
+      - ./user-files:/opt/gatling/user-files
+      - ./user-files/:/app/user-files/
+    ports:
+      - "7070:8080"
+    environment:
+      - Jsonpoint=http://192.168.2.77:5000/test/conf/matrix/France
+      - Url_Matrix=http://192.168.2.77:8008
+

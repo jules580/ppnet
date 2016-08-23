@@ -1,0 +1,1 @@
+{"visibility":"private","room_alias_name":"test"}

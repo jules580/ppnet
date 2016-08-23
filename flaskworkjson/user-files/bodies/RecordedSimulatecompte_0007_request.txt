@@ -1,0 +1,1 @@
+{"username":"test455","password":"test455","bind_email":true,"auth":{"session":"LJcxtiWHSGwlSabQWMsbIvVY","type":"m.login.dummy"}}
