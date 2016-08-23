@@ -1,4 +1,3 @@
-
 #! /usr/bin/python
 
 from flask import Flask
@@ -183,12 +182,24 @@ def reports(simulation, action='find', report=None ):
 	
 	#num = lreports.index(report)
 	#num = len(lreports)
+	lreports2=[]
+	prefix=lreports[0].split('-')[0]
+	for i in range(0,len(lreports)):
+		text=lreports[i]
+		data=text[len(prefix)+1:]
+		lreports2.append(data)
+	lreports3=sorted(lreports2)
+	lreports4=[prefix+"-"+s for s in lreports3]
 	app.logger.debug('Checking if '
                         + _REPORT_PATH + report + ' exists.')
 	if report:
             report = sanitize(report)
 	    simulation = sanitize(simulation)
-	    p1 = subprocess.Popen(["cp","-f","/app/stdout"+simulation+str(lreports.index(report)+1)+".txt",_REPORT_PATH+report])
+	    if "matrix" in simulation:
+		k=1
+	    else:
+		k=2
+	    p1 = subprocess.Popen(["cp","-f","/app/stdout"+simulation+str(lreports4.index(report)+k)+".txt",_REPORT_PATH+report+"/gatling.txt"])
 	    p1.wait()
             if os.path.exists(_REPORT_PATH + report):
                
@@ -309,7 +320,7 @@ def loads():
 def anayse(report):
 	subprocess.call(["cp","-f","/opt/gatling/user-files/data/jsonresult.sh","/opt/gatling/results/"+report])
 	#p1.wait()
-	subprocess.call(["sh","/opt/gatling/results/"+report+"/jsonresult.sh",report])
+	subprocess.call(["sh","/opt/gatling/results/"+report+"/jsonresult.sh","/opt/gatling/results/"+report])
 	subprocess.call(["cp","-f","/app/result.txt","/opt/gatling/results/"+report])	
 	#file = open('/app/result.txt','r')
 
@@ -626,4 +637,3 @@ app.add_url_rule(
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
-
