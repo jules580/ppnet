@@ -3,7 +3,7 @@ version: '2'
 services:
 
   gatling:
-    image: vbaer/flaskname102
+    image: vbaer/flaskname104
 
     volumes:
       - ./user-files:/opt/gatling/user-files

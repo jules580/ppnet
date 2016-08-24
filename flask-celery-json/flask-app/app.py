@@ -900,7 +900,63 @@ class ResultsAPI(MethodView):
 
         return jsonify(data)
 
-
+class JsonResultAPI(MethodView):
+	def get(self,id):
+		"""
+        this methods will give the result of the simulation in a response in json
+        ---
+        tags:
+          - matrix
+        parameters:
+          - name: id
+            in: path
+            description: This is the id of the task we have launch to get the result of the simulation
+            required: true
+            type: string
+            format: utf8       
+        responses:
+          201:
+            description:  Give  analyse
+            schema:
+                id: Action
+                type: object
+                required:
+                    - Json
+                properties:
+                    Json:
+                        type: string
+                        description:  the analyse in a json way
+       
+        """			
+class JsonResultsAPI(MethodView):
+	def get(self,id):
+		"""
+        this methods will give the result of the simulation in a response in json
+        ---
+        tags:
+          - vector
+        parameters:
+          - name: id
+            in: path
+            description: This is the id of the task we have launch to get the result of the simulation
+            required: true
+            type: string
+            format: utf8       
+        responses:
+          201:
+            description:  Give  analyse
+            schema:
+                id: Action
+                type: object
+                required:
+                    - Json
+                properties:
+                    Json:
+                        type: string
+                        description:  the analyse in a json way
+       
+        """						
+		
 view = MatrixAPI.as_view('launchtest_Matrix')
 app.add_url_rule(
     '/launchtest/matrix',
@@ -978,7 +1034,19 @@ app.add_url_rule(
     methods=["GET"],
     endpoint="getresult_vector")
 
-
+view11 = JsonResultAPI.as_view('jsonresult_matrix')
+app.add_url_rule(
+	'/jsonresult/matrix/<int:id>',
+	view_func=view11,
+	methods=["GET"],
+	endpoint="jsonresult_matrix")
+view12= JsonResultsAPI.as_view('jsonresult_vector')
+app.add_url_rule(
+	'/jsonresult/vector/<int:id>',
+	view_func=view12,
+	methods=["GET"],
+	endpoint="jsonresult_vector")
+	
 if __name__ == '__main__':
     app.run(debug=env.get('DEBUG',True),
             port=int(env.get('PORT',5000)),
