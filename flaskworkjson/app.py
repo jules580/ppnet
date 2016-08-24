@@ -584,7 +584,62 @@ class LoadsAPI(MethodView):
             [ {"user":"name", "team":team_id}
             ]
         }
-
+class AnalyseAPI(MethodView):
+	def get(self):
+		 """
+        this methods will ask the system to analyse the result of the simulation
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: report_id
+            in: path
+            description: this is the id of the folder of  the simualtion we launch
+            required: true
+            type: string
+            format: utf8       
+        responses:
+          201:
+            description:  Analyse have been done
+            schema:
+                id: Action
+                type: object
+                required:
+                    - Action
+                properties:
+                    Action:
+                        type: string
+                        description: Analyse has been done
+                        default: Done
+        """
+class AnalyseResultAPI(MethodView):
+	def get(self):
+		        """
+        this methods will give you a part of the result of the analyse.This analyse has just the simulation.log and not the interface
+        ---
+        tags:
+          - simulation
+        parameters:
+          - name: report_id
+            in: path
+            description: this is the id of the folder that we want to have the result
+            required: true
+            type: string
+            format: utf8       
+        responses:
+          201:
+            description:  Give part analyse
+            schema:
+                id: Action
+                type: object
+                required:
+                    - Json
+                properties:
+                    Json:
+                        type: string
+                        description: Result a part of the analyse
+       
+        """		
 
 #views= SimulationAPI.as_view('simulation_name_start')
 #app.add_url_rule(
@@ -634,6 +689,19 @@ app.add_url_rule(
     methods=["GET"],
     endpoint="simulation_loads"
     )
+
+views8= AnalyseAPI.as_view('analyse')
+app.add_url_rule(
+     '/analyse/<int:id>',
+	  view_func=views8,
+	  methods=["GET"],
+	  endpoint="analyse")
+views9= AnalyseResultAPI.as_view('analyseresult')
+app.add_url_rule(
+	'/analyseresult/<int:id>',
+	view_func=views9,
+	methods=["GET"],
+	endpoint="analyseresult")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
