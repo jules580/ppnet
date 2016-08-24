@@ -692,13 +692,13 @@ app.add_url_rule(
 
 views8= AnalyseAPI.as_view('analyse')
 app.add_url_rule(
-     '/analyse/<int:id>',
+     '/analyse/<int:report_id>',
 	  view_func=views8,
 	  methods=["GET"],
 	  endpoint="analyse")
 views9= AnalyseResultAPI.as_view('analyseresult')
 app.add_url_rule(
-	'/analyseresult/<int:id>',
+	'/analyseresult/<int:report_id>',
 	view_func=views9,
 	methods=["GET"],
 	endpoint="analyseresult")
