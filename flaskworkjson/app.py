@@ -136,7 +136,7 @@ def sim_action(simulation, action):
         if action == 'start':
 	   
 		
-	    with open("stdout"+name,"wb") as out, open("stderr"+simulationtab[2]+".txt","wb") as err:
+	    with open("/app/stdout"+name,"wb") as out, open("stderr"+simulationtab[2]+".txt","wb") as err:
            	 p = subprocess.Popen([_GATLING_PATH + '/bin/gatling.sh', '-s', simulation],stdout=out,stderr=err)
             return True
 
@@ -195,10 +195,10 @@ def reports(simulation, action='find', report=None ):
 	if report:
             report = sanitize(report)
 	    simulation = sanitize(simulation)
-	    if "matrix" in simulation:
+	    if "atrix" in simulation:
 		k=1
 	    else:
-		k=2
+		k=1
 	    p1 = subprocess.Popen(["cp","-f","/app/stdout"+simulation+str(lreports4.index(report)+k)+".txt",_REPORT_PATH+report+"/gatling.txt"])
 	    p1.wait()
             if os.path.exists(_REPORT_PATH + report):
@@ -321,7 +321,7 @@ def anayse(report):
 	subprocess.call(["cp","-f","/opt/gatling/user-files/data/jsonresult.sh","/opt/gatling/results/"+report])
 	#p1.wait()
 	subprocess.call(["sh","/opt/gatling/results/"+report+"/jsonresult.sh","/opt/gatling/results/"+report])
-	subprocess.call(["cp","-f","/app/result.txt","/opt/gatling/results/"+report])	
+	#subprocess.call(["cp","-f","/app/result.txt","/opt/gatling/results/"+report])	
 	#file = open('/app/result.txt','r')
 
 			#output= subprocess.check_ouput(['cat','/opt/gatling/results/'+report+'/result.txt'])
@@ -331,7 +331,7 @@ def anayse(report):
 	#return file.read()
 @app.route('/analyseresult/<report>')
 def getanalyse(report):
-	file=open('/app/result.txt','r')
+	file=open('/opt/gatling/result.txt','r')
 	return file.read()
 
 class SimulationAPI(MethodView):
