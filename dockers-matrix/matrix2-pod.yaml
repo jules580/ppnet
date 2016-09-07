@@ -1,0 +1,31 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: matrix3-pod
+  labels:
+    name: matrix
+spec:
+  containers:
+    - name: vector
+      image: allmende/vector
+      commands: ["bin/sh","-c"]
+      args: ["start.sh","start"]
+      ports:
+        - containerPort: 8080
+    - name: coturn
+      image: allmende/coturn
+      commands: ["bin/sh","-c"]
+      args: ["start.sh","start"]
+      ports:
+        - containerPort: 8448
+    - name: synapse
+      image: allmende/synapse
+      commands: ["bin/sh","-c"]
+      args: ["start.sh","start"]
+      ports:
+        - containerPort: 3478
+   
+  volumes:
+    - name: data
+      hostPath:
+        path: /data/

@@ -1,0 +1,28 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: matrixi-pod
+  labels:
+    name: matrix
+spec:
+  containers:
+    - name: matrix
+      image: vbaer/kubematrix
+      commands: 
+      - start
+      ports:
+        - containerPort: 8448
+    - name: coreturn
+      image: vbaer/kubematrix
+      commands:
+      - start
+      ports:
+        - containerPort: 3478
+
+      volumeMounts:
+        - mountPath: /tmp/data
+          name: data
+  volumes:
+    - name: data
+      hostPath:
+        path: /data/
