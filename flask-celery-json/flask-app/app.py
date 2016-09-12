@@ -17,6 +17,7 @@ from flask import url_for
 from worker import celery
 from celery.result import AsyncResult
 import celery.states as states
+import unicodedata
 i=0
 k=0
 Data=["test"]
@@ -320,19 +321,19 @@ def echo23():
 	Data.append(testnum)
 	Receive_data=Data[index]
 	URL=Receive_data[testTargetUrl]
-	
-	
-	r=requests.get(listTest[content[2]]+"/gatling/"+content[1]+"/start")
+	with open("data.json") as json_file:
+		listTest2=json.load(json_file)
+	r=requests.get(listTest2[content[2]]+"/gatling/"+content[1]+"/start")
 	js=json.loads(r.content)
 	Status=js["status"]
 	if Status!="failed":
-			Details=js["details"]
-			Task={"request_id":str(i),"status":Status,"details":str(Details)}
-			return json.dumps(Task,sort_keys=True,indent=4)
+		Details=js["details"]
+		Task={"request_id":str(i),"status":Status,"details":str(Details)}
+		return json.dumps(Task,sort_keys=True,indent=4)
 	else:
-			Message=js["message"]
-			Task={"status":Status,"details":Message}
-			return json.dumps(Task,sort_keys=True,indent=4)
+		Message=js["message"]
+		Task={"status":Status,"details":Message}
+		return json.dumps(Task,sort_keys=True,indent=4)
 @app.route("/launchtest/matrix", methods=["PUT","POST"])
 def echo():
 	JsonData=json.loads(json.dumps(request.get_json(force=True)))
@@ -518,7 +519,9 @@ def check54(id):
 	test=DataReceive[testSourceName]
 	scenarioName=str(id)+"scenarioName"
 	Scenario=DataReceive[scenarioName]
-        urlsend=listTest[test]+"/gatling/"+Scenario
+	with open("data.json") as json_file:
+		listTest2=json.load(json_file)
+        urlsend=listTest2[test]+"/gatling/"+Scenario
         r=requests.get(urlsend)
         #return "hello"+Scenario
 	js= json.loads((r.content))
@@ -569,7 +572,9 @@ def getreports4(id):
 	ScenarioData=DataReceive[scenarioName]
 	Scenariotab=ScenarioData.split('.')
 	Scenario=Scenariotab[2]
-    	urlresult=listTest[test]+"/gatling/"+Scenario+"/reports"
+	with open("data.json") as json_file:
+		listTest2= json.load(json_file)
+    	urlresult=listTest2[test]+"/gatling/"+Scenario+"/reports"
 	r=requests.get(urlresult)
 	js=json.loads((r.content))
 	tabjs=js['reports']
