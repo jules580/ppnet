@@ -3,12 +3,8 @@ import time
 import json
 import requests
 import sys
-import zipfile
-import io
-import subprocess
 from celery import Celery
-
-#listTest={"USA": "http://192.168.2.76:7070","France":"http://104.198.192.108:7070" } 
+listTest={"test": "http://192.168.2.76:7070" } 
 env=os.environ
 CELERY_BROKER_URL=env.get('CELERY_BROKER_URL','redis://localhost:6379'),
 CELERY_RESULT_BACKEND=env.get('CELERY_RESULT_BACKEND','redis://localhost:6379')
@@ -28,25 +24,23 @@ def add(x, y):
     return x + y
     
 @celery.task(name='mytask.get')
-def get(Scenario,SourceName):
+def get(Scenario,test):
 	global indexnum
 	global index
 	global Name
 	global Nb_request
 	scenario_content=Scenario.split('.')
-	scenario=scenario_content[2]
+	scenario=scenario_content[1]
 	#global Datacontent
-	with open("data.json") as json_file:
-		listTest=json.load(json_file)
 	time.sleep(80)
 	for l in range(0,40):
-		url=listTest[SourceName]+"/gatling/"+Scenario
+		url=listTest[test]+"/gatling/"+Scenario
 		res=requests.get(url)
 		jst=json.loads(res.content)
 		jstab=jst['status']
 		Datacontent=jst['status']
 		if jstab=="stopped":
-			urlresult=listTest[SourceName]+"/gatling/"+scenario+"/reports"
+			urlresult=listTest[test]+"/gatling/"+scenario+"/reports"
 			r=requests.get(urlresult)
 			js=json.loads((r.content))
 			tabjs=js['reports']
@@ -60,18 +54,12 @@ def get(Scenario,SourceName):
 					Time_id=time_id
 					Name=tabjs[i]
 	
-			urlget=listTest[SourceName]+"/gatling/"+scenario+"/reports/"+Name
+			urlget=listTest[test]+"/gatling/"+scenario+"/reports/"+Name
 			requests.get(urlget)
-			urlanalyse=listTest[SourceName]+"/analyse/"+Name
-			reanalyse=requests.get(urlanalyse)
-			requests.get(urlget)
-			urlgets=listTest[SourceName]+"/gatling/downloads/"+Name
+			urlgets=listTest[test]+"/gatling/downloads/"+Name
 			requests.get(urlgets)
 			re=requests.get(urlget)
-			z = zipfile.ZipFile(io.BytesIO(re.content))
-			z.extractall()
-			return str(urlget)
-			
+			return str(re.content)
 			sys.exit(0)
 		#	Datacontent=str(re.content)
 			#break
