@@ -117,7 +117,7 @@ def getresults3(param2):
 	global iden_matrix_num
 	global listTest
 	global Data
-
+	global i
 	DataReceive=Data[param2]
 	scenarioName=str(param2)+"scenarioName"
 	Scenario=DataReceive[scenarioName]
@@ -132,16 +132,19 @@ def getresults3(param2):
 	param3=0
 	for cle in listTest2.keys():
 		Name.append(cle)
-	#for i in range(0,len(Data)):
-	#	i=+1
-	#	DataR=Data[i]
-	#	testSourceNames=str(i)+"testSourceName"
-	#	SourceNames=DataR[testSourceNames]
-	#	if SourceNames==Name[0]:
-	#		param1+=1
-#		elif SourceNames==Name[1]:
-#			param3+=1	
+	for K in range(1,i+1):
+		DataR=Data[K]
+		testSourceNames=str(K)+"testSourceName"
+		SourceNames=DataR[testSourceNames]
+		if SourceNames==Name[1]:
+			param1+=1
+		elif SourceNames==Name[0]:
+			param3+=1
 	
+	if SourceName==Name[1]:
+		param2=param1
+	elif SourceName==Name[0]:
+		param2=param3
 	#param3=len(DataReceive)-param2-1
 	#time.sleep(30)
 	task= celery.send_task('mytask.get', args=[Scenario,SourceName,param2], kwargs={})
