@@ -125,10 +125,26 @@ def getresults3(param2):
 	SourceName=DataReceive[testSourceName]
 	#del Data[param2]
 	#Data.insert(param2,"")
-			
+	with open('data.json') as json_file:
+		listTest2=json.load(json_file)
+	Name=[]
+	param1=0
+	param3=0
+	for cle in listTest2.keys():
+		Name.append(cle)
+	#for i in range(0,len(Data)):
+	#	i=+1
+	#	DataR=Data[i]
+	#	testSourceNames=str(i)+"testSourceName"
+	#	SourceNames=DataR[testSourceNames]
+	#	if SourceNames==Name[0]:
+	#		param1+=1
+#		elif SourceNames==Name[1]:
+#			param3+=1	
 	
+	#param3=len(DataReceive)-param2-1
 	#time.sleep(30)
-	task= celery.send_task('mytask.get', args=[Scenario,SourceName], kwargs={})
+	task= celery.send_task('mytask.get', args=[Scenario,SourceName,param2], kwargs={})
 	iden_matrix_num+=1
 	idenmatrix[iden_matrix_num]=task.id
 	

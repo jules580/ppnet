@@ -28,7 +28,7 @@ def add(x, y):
     return x + y
     
 @celery.task(name='mytask.get')
-def get(Scenario,SourceName):
+def get(Scenario,SourceName,param2):
 	global indexnum
 	global index
 	global Name
@@ -52,14 +52,25 @@ def get(Scenario,SourceName):
 			tabjs=js['reports']
 			Time_id=0
 			index=len(tabjs)
-			for i in range(0,index):
+			diff=index-param2
+			#diff=0
+			for j in range(0,diff):
+				for i in range(0,index):
+					Data=tabjs[i]
+					Data_time=Data.split('-')
+					time_id=Data_time[1]
+					if time_id>Time_id:
+						Time_id=time_id
+						Name=tabjs[i]
+				tabjs.remove(Name)
+			Time_id=0
+			for i in range(0,index-diff):
 				Data=tabjs[i]
 				Data_time=Data.split('-')
 				time_id=Data_time[1]
 				if time_id>Time_id:
 					Time_id=time_id
 					Name=tabjs[i]
-	
 			urlget=listTest[SourceName]+"/gatling/"+scenario+"/reports/"+Name
 			requests.get(urlget)
 			urlanalyse=listTest[SourceName]+"/analyse/"+Name
