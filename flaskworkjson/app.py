@@ -360,11 +360,11 @@ class SimulationAPI(MethodView):
                 properties:
                     status:
                         type: string
-                        description: this is the status of the simulation.It can be sucess or fail
-                        default: Sucess
+                        description: this is the status of the simulation. It can be a success or a failure
+                        default: Success
                     details:
                         type: string
-                        description: this is the details about the sucess or the fail request
+                        description: this is the details about the success or the fail request
                         default: true
         """
         data= {
@@ -383,7 +383,7 @@ class SimulationsAPI(MethodView):
         parameters:
           - name: simulation_name
             in: path
-            description: it is the name of the simulartion we want to start
+            description: it is the name of the simulation we want to start
             required: true
             type: string
             format: utf8
@@ -405,8 +405,8 @@ class SimulationsAPI(MethodView):
                 properties:
                     status:
                         type: string
-                        description: this is the status of the simulation.It can be sucess or fail
-                        default: Sucess
+                        description: this is the status of the simulation.It can be success or fail
+                        default: Success
                     message:
                         type: string
                         description: this is the detail of the succes or not of the request
@@ -418,23 +418,24 @@ class SimulationsAPI(MethodView):
         }
         return jsonify(data)
 
+
 class SimulationsCheckAPI(MethodView):
     def get(self,simultion_name):
         """
-        this methods return the status of the simultion associate with the client test request
+        this methods will give the status of the simulation of the client test request
         ---
         tags:
           - simulation
         parameters:
           - name: simulation_name
             in: path
-            description: It is the name of the scenario we want to chek the status
+            description: It is the name of the scenario we want to check the status
             required: true
             type: string
             format: utf8
         responses:
           201:
-            description:  this methods will return the status of the simulations
+            description:  this methods will return the status of the simulation
             schema:
                 id: Status
                 type: object
@@ -443,7 +444,7 @@ class SimulationsCheckAPI(MethodView):
                 properties:
                     Status:
                         type: string
-                        description: this is the status of the simulation.It can be stopped or running
+                        description: this is the status of the simulation. It can be stopping or running
                         default: running
         """
         data= {
@@ -451,6 +452,7 @@ class SimulationsCheckAPI(MethodView):
             ]
         }
         return jsonify(data)
+
 
 class SimulationsReportAPI(MethodView):
     def get(self,simulation_name):
@@ -479,7 +481,7 @@ class SimulationsReportAPI(MethodView):
                     properties:
                         ListReport:
                             type: string
-                            description: it is the list of all simulation name that have the same scenario in the launch
+                            description: It is the list of every simulation name which has the same scenario of test
                             default: [loginmatrix-1471434838433]
         """
         data= {
@@ -487,7 +489,6 @@ class SimulationsReportAPI(MethodView):
             ]
         }
         return jsonify(data)
-
 class SimulationsReportIdAPI(MethodView):
     def get(self,simulation_name,report_id):
         """
@@ -519,14 +520,13 @@ class SimulationsReportIdAPI(MethodView):
                 properties:
                     Zip:
                         type: string
-                        description: this is a file which contain all graphe and the simulation log
+                        description: this is a file which contains all graphe and all simulation log
         """
         data= {
             [ {"user":"name","team":team_id}
             ]
         }
         return jsonify(data)
-
 class DownloadAPI(MethodView):
     def get(self,report_id):
         """
@@ -543,7 +543,7 @@ class DownloadAPI(MethodView):
             format: utf8
         responses:
           201:
-            description:  the change have been done
+            description: the change has been done
             schema:
                 id: Zipfile
                 type: object
@@ -552,7 +552,7 @@ class DownloadAPI(MethodView):
                 properties:
                     Done:
                         type: string
-                        description: the change have been done
+                        description: the change has been done
         """
 
         data= {
@@ -563,13 +563,13 @@ class DownloadAPI(MethodView):
 class LoadsAPI(MethodView):
     def get(self):
         """
-        this methods will report the list of all user associate with thei token and the name of the room that they have access
+        this methods will report the list of all user associate with their token and the name of the room that they have access
         ---
         tags:
           - simulation
         responses:
           201:
-            description:  the change have been done
+            description:  the change has been done
             schema:
                 id: Zipfile
                 type: object
@@ -578,7 +578,7 @@ class LoadsAPI(MethodView):
                 properties:
                     Done:
                         type: string
-                        description: the change have been done
+                        description: the change has been done
         """
         data= {
             [ {"user":"name", "team":team_id}
@@ -600,7 +600,7 @@ class AnalyseAPI(MethodView):
             format: utf8       
         responses:
           201:
-            description:  Analyse have been done
+            description:  Analyse has been done
             schema:
                 id: Action
                 type: object
@@ -615,7 +615,7 @@ class AnalyseAPI(MethodView):
 class AnalyseResultAPI(MethodView):
 	def get(self):
 		        """
-        this methods will give you a part of the result of the analyse.This analyse has just the simulation.log and not the interface
+        this methods will give you a part of the result of the analyse. This analyse has just the simulation log and not the interface of the simulation
         ---
         tags:
           - simulation
@@ -628,7 +628,7 @@ class AnalyseResultAPI(MethodView):
             format: utf8       
         responses:
           201:
-            description:  Give part analyse
+            description:  The result of the analyse is not complete
             schema:
                 id: Action
                 type: object
@@ -637,7 +637,7 @@ class AnalyseResultAPI(MethodView):
                 properties:
                     Json:
                         type: string
-                        description: Result a part of the analyse
+                        description: the result of the analyse is not complete
        
         """		
 
