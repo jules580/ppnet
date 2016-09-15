@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, g
 from flask.views import MethodView
 from flasgger import Swagger
 import os
@@ -12,7 +12,7 @@ import time
 import subprocess
 import requests, zipfile, io
 from flask import jsonify
-from flask import Flask, request, send_file, send_from_directory
+from flask import Flask, session, request, send_file, send_from_directory
 from flask import url_for
 from worker import celery
 from celery.result import AsyncResult
@@ -79,6 +79,12 @@ def add(param1,param2):
     return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
                 url=url_for('check_task',id=task.id,_external=True))
 
+@app.route('/init/')
+def init():
+	session['iden_matrix_num']=0
+	#idenmatrix={}
+	#g.idenmatrix=idenmatrix
+	return str(session['iden_matrix_num'])	
 @app.route('/check/<string:id>')
 def check_task(id):
     res = celery.AsyncResult(id)
@@ -114,10 +120,11 @@ def getresults2(param4):
 @app.route('/requestResult/<int:param2>')
 def getresults3(param2):	
 	global idenmatrix
-	global iden_matrix_num
+	#global iden_matrix_num
 	global listTest
-	global Data
-	global i
+	#global Data
+	Data=session['DATA']
+
 	DataReceive=Data[param2]
 	scenarioName=str(param2)+"scenarioName"
 	Scenario=DataReceive[scenarioName]
@@ -130,27 +137,33 @@ def getresults3(param2):
 	Name=[]
 	param1=0
 	param3=0
+	i=session['index']
 	for cle in listTest2.keys():
 		Name.append(cle)
 	for K in range(1,i+1):
-		DataR=Data[K]
+		DataR=Data[K]	
 		testSourceNames=str(K)+"testSourceName"
 		SourceNames=DataR[testSourceNames]
-		if SourceNames==Name[1]:
+		scenarioNames=str(K)+"scenarioName"
+		Scenarios=DataR[scenarioNames]
+		if SourceNames==Name[1] and Scenarios==Scenario:
 			param1+=1
-		elif SourceNames==Name[0]:
+		elif SourceNames==Name[0] and Scenarios==Scenario:
 			param3+=1
-	
 	if SourceName==Name[1]:
 		param2=param1
 	elif SourceName==Name[0]:
-		param2=param3
-	#param3=len(DataReceive)-param2-1
+		param2=param3	
 	#time.sleep(30)
 	task= celery.send_task('mytask.get', args=[Scenario,SourceName,param2], kwargs={})
+	#iden_matrix_num=session['iden_matrix_num']
+	iden_matrix_num=session['iden_matrix_num']
 	iden_matrix_num+=1
+	#idenmatrix=session['idenmatrix']
+	#idenmatrix=getattr(g,'idenmatrix', None)
 	idenmatrix[iden_matrix_num]=task.id
-	
+	session['iden_matrix_num']=session['iden_matrix_num']+1
+	#session['iden_matrix_num']=iden_matrix_num
 	Task={"request_id":str(iden_matrix_num)}
 	return json.dumps(Task,sort_keys=True,indent=4)	
 @app.route('/requestResult/matrix/<int:param2>')
@@ -180,7 +193,7 @@ def getresultsmatrix2(param2):
 @app.route('/getresult/vector/<int:param3>')
 def check(param3):
 	global iden
-	global iden_num
+	#global iden_num
 	identi=iden[param3]
 
 	datares="Pending"
@@ -272,6 +285,7 @@ def check2(param3):
 @app.route('/jsonresults/<int:param3>')
 def check654(param3):
 	global indenmatrix
+	#idenmatrix=getattr(g,'idenmatrix', None)
 	identi=idenmatrix[param3]
 	res= celery.AsyncResult(identi)
 	if res.state==states.PENDING:
@@ -338,6 +352,8 @@ def echo23():
 		
 	index=i
 	Data.append(testnum)
+	session['DATA']=Data
+	session['index']=i
 	Receive_data=Data[index]
 	URL=Receive_data[testTargetUrl]
 	with open("data.json") as json_file:
@@ -530,9 +546,11 @@ def runvector(testerId):
   return testreceivevector
 @app.route('/checkstatus/<int:id>')
 def check54(id):
-	global listTest
-	global DataVector
-	global i
+	#global listTest
+	#global Data
+	#global i
+	Data=session['DATA']
+	i=session['index']
 	DataReceive=Data[id]
 	testSourceName=str(id)+"testSourceName"
 	test=DataReceive[testSourceName]
@@ -581,9 +599,11 @@ def checks2(id):
 	return json.dumps(Task,sort_keys=True,indent=4)
 @app.route('/getreports/<int:id>')
 def getreports4(id):
-	global listTest
-	global Data
-	global i
+	#global listTest
+	#global Data
+	#global i
+	Data=session['DATA']
+	i=session['index']
 	DataReceive=Data[id]
 	testSourceName=str(id)+"testSourceName"
 	test=DataReceive[testSourceName]
@@ -666,18 +686,18 @@ def new():
 	scenarioName=JsonData['scenarioName']
 	testSourceName=JsonData['testSourceName']
 	return "Mon url est:"+url+", Mon scenario est:"+scenarioName+",Mon testeur est:"+testSourceName
-	
+app.secret_key="test"	
 class VectorAPI(MethodView):
     def post(self):
         """
-        Launch a simulation connected to a scenario in one particular gatlin testserver in order to attack a specific matrix server and the vector which is conneted to this matrix server
+        Launch a simulation connected to a scenario in one particular Gatling testserver in order to attack a specific matrix server and the vector which is conneted to this matrix server.
         ---
         tags:
           - vector
         parameters:
           - in: body
             name: Attack_infos
-            description: It is the scenario , the gatling test server, the vector interface and the matrix server that the clieny choose to have for this test
+            description: It is the scenario, the Gatling test server, the vector interface and the matrix server that the client chooses to have for this test.
             required: true
             schema:
               id: infos_attack
@@ -690,11 +710,11 @@ class VectorAPI(MethodView):
               properties:
                 scenarioName:
                     type: string
-                    description: this is the name of the sceanrio that the client want to launch in order to attack a specifc target 
+                    description: this is the name of the scenario that the client wants to launch in order to attack a specific target
                     default: tai.vector.LoginVector
                 testTargetUrl:
                     type: string
-                    description: this is the url of the matrix or vector server the client want to attack
+                    description: this is the url of the matrix or vector server the client wants to attack
                     default: http://192.168.2.77:8008
                 testSourceName:
                     type: string
@@ -741,7 +761,7 @@ class MatrixAPI(MethodView):
 
  def post(self,Matrix):
         """
-        launch a simulation connected to a scenario in one particular gatling test server in order to attack a specific target
+        launch a simulation connected to a scenario in one particular Gatling Test Server in order to attack a specific target
         ---
         tags:
           - matrix
@@ -754,7 +774,7 @@ class MatrixAPI(MethodView):
 	    default: /
           - in: body
             name: Attack_infos
-            description: It is the scenari, the gatling server and the specific matrix server that the client choose to have for this test
+            description: It is the scenario, the Gatling server and the specific matrix server that the client choose to have for this test
             schema:
               id: infos_attack
               required:
@@ -765,11 +785,11 @@ class MatrixAPI(MethodView):
               properties:
                 scenarioName:
                     type: string
-                    description: this is the name of the sceanrio that the client want to launch in order to attack a specifc target 
+                    description: this is the name of the scenario that the client wants to launch in order to attack a specifc target 
                     default: tai.matrix.LoginMatrix
                 testTargetUrl:
                     type: string
-                    description: this is the url of the matrix or vector server the client want to attack
+                    description: this is the url of the matrix or vector server the client wants to attack
                     default: http://192.168.2.77:8008
                 testSourceName:
                     type: string
@@ -810,6 +830,7 @@ class MatrixAPI(MethodView):
 
        # return jsonify({"newuser": request.json, "team_id": team_id})
 
+
 class CheckAPI(MethodView):
     def get(self,id_matrix):
         """
@@ -835,11 +856,11 @@ class CheckAPI(MethodView):
                 properties:
                     status:
                         type: string
-                        description: it is the status of the request.The request can be stop or can be running
+                        description: It is the status of the request. The request can be stop or can be running
                         default: running
                     Scenario_Name:
                         type: string
-                        description: it is the name of the scenario that the client choose
+                        description: it is the name of the scenario that the client chooses
                         default: tai.vector.LoginVector
                      
         """
@@ -861,7 +882,7 @@ class ResultAPI(MethodView):
             format: int64
         responses:
           201:
-            description: this method will return an id of the task which is send to the flask+ceery server
+            description: this method will return an id of the task which is send to a Flask+Celery server
             schema:
                 id: Task
                 type: object
@@ -884,10 +905,11 @@ class ResultAPI(MethodView):
             ]
         }
         return jsonify(data)
+
 class ChecksAPI(MethodView):
     def get(self,id_vector):
         """
-        this methods return the status of the simulation fo vector
+        this methods return the status of the simulation for vector
         ---
         tags:
           - vector
@@ -910,11 +932,11 @@ class ChecksAPI(MethodView):
                 properties:
                     status:
                         type: string
-                        description: it is the status of the request.It can be running or stop
+                        description: it is the status of the request. This request can be running or stopping
                         default: running
                     Scenario_Name:
                         type: string
-                        description: it is the name of the scenario that the client chose to launch
+                        description: it is the name of the scenario that the client chooses to launch
                         default: tai.matrix.LoginMatrix
         """             
         return "toto"
@@ -922,7 +944,7 @@ class ChecksAPI(MethodView):
 class GetReportsVectorAPI(MethodView):        
     def get(self, id_vector):
         """
-        this methods will give the list of all request_name(Name of the scenario+timsatp) with the same scenario
+        this methods will give the list of all request_name(The name fo the simultion+ Timestap) with the same scenario
         ---
         tags:
           - vector
@@ -946,7 +968,7 @@ class GetReportsVectorAPI(MethodView):
                     properties:
                         ListReport:
                             type: string
-                            description: it is the list of all simulation that have in commun the same scenario of test
+                            description: It is the list of simulations name which has the same scenario of test
                             default: [loginvector-1471435202189]
         """
         data = {
@@ -957,6 +979,7 @@ class GetReportsVectorAPI(MethodView):
             ]
         }
         return jsonify(data)
+
 class GetReportsMatrixAPI(MethodView):
     def get(self,id_matrix):
         """
@@ -984,7 +1007,7 @@ class GetReportsMatrixAPI(MethodView):
                     properties:
                         ListReport:
                             type: string
-                            description: it is the list of all simulation name that have the same scenario in the launch
+                            description: it is the list of every simulation name which has the same scenario of test
                             default: [loginmatrix-1471434838433]
         """
 
@@ -997,10 +1020,11 @@ class GetReportsMatrixAPI(MethodView):
             ]
         }    
         return jsonify(data)
+
 class ResultSimulationAPI(MethodView):
     def get(self,id_matrix):
         """
-        this methods will ask the flask+celery server in order to get the result of the simultion.If the simultion is not ready, there will be a pending message
+        this methods will ask the flask+celery server in order to get the result of the simulation. If the simulation is not ready, there will be a pending message
         ---
         tags:
           - matrix
@@ -1023,10 +1047,10 @@ class ResultSimulationAPI(MethodView):
                 properties:
                     logfile:
                         type: string
-                        description: it is the log file of the simultion the client has chose to launch
+                        description: it is the logfile of the simulation that the client chose to launch
                     index:
                         type: string
-                        description: it is an html file which contain all graphe of the simulation
+                        description: it is an html file wich contains all graphes of the simulation that the client launch.
                     
         """
 
@@ -1039,17 +1063,18 @@ class ResultSimulationAPI(MethodView):
         }
         return jsonify(data)
 
+
 class ResultSimulationsAPI(MethodView):
     def get(self,id_vector):
         """
-        this methods will ask the flask+celery server in order to get the result of the simultion.If the simultion is not ready, there will be a pending message
+        this methods will ask the flask+celery server in order to get the result of the simulation. If the simulation is not ready, there will be a pending message
         ---
         tags:
           - vector
         parameters:
           - name: id_vector
             in: path
-            description: it is the id of the task f the requestresult
+            description: it is the task's id of the requestResult
             required: true
             type: integer
             format: int64
@@ -1065,10 +1090,10 @@ class ResultSimulationsAPI(MethodView):
                 properties:
                     logfile:
                         type: string
-                        description: it is the logfile of the simultion that the client choose to launch
+                        description: it is the logfile of the simulation that the client chooses to launch
                     index:
                         type: string
-                        description: it is an html file of all graphe of the simultion that the client chose to launch
+                        description: it is an html file which contains all graphe of the simulation that the client chooses to launch
                     
         """
         data= {
@@ -1081,7 +1106,7 @@ class ResultSimulationsAPI(MethodView):
 class ResultsAPI(MethodView):
     def get(self,id_vector):
         """
-        this methods will send create a new task in flask+celery server in order to get the result of the simulation
+        this methods will send a new task in flask+celery server in order to get the result of the simulation
         ---
         tags:
           - vector
@@ -1094,7 +1119,7 @@ class ResultsAPI(MethodView):
             format: int64
         responses:
           201:
-            description:  this method will receuve the id of the taks in the flask+celery server
+            description:  this method will receive the id of the task in the flask+celery server
             schema:
                 id: Task
                 type: object
@@ -1116,6 +1141,7 @@ class ResultsAPI(MethodView):
         }
 
         return jsonify(data)
+
 
 class JsonResultAPI(MethodView):
 	def get(self,id_matrix):
@@ -1142,13 +1168,13 @@ class JsonResultAPI(MethodView):
                 properties:
                     Json:
                         type: string
-                        description:  the analyse in a json way
+                        description:  Analyse of the JSON file
        
-        """			
+        """				
 class JsonResultsAPI(MethodView):
       def get(self,id_vector):
 		"""
-        this methods will give the result of the simulation in a response in json
+        this methods will give the result of the simulation in a JSON reponse
         ---
         tags:
           - vector
@@ -1172,11 +1198,11 @@ class JsonResultsAPI(MethodView):
                         type: string
                         description:  the analyse in a json way
        
-        """						
+        """							
 class ConfAPI(MethodView):
      	def get(self,SourceId):
         	"""
-	this methods a json file in order to give the data in the particular test server
+	this methods a json file in order to receive data in the particular test server
         ---
         tags:
           - matrix
@@ -1198,13 +1224,14 @@ class ConfAPI(MethodView):
                 properties:
                     Json:
                         type: string
-                        description:  the infromations from the user  in a json way
+                        description:  A JSON file which contain inofrmaion about the user
 
         """
+
 class ConfsAPI(MethodView):
         def get(self,SourceId):
                 """
-        this methods give  file in order to give the data in the particular t$
+        this methods will rceive a file which contains informations about the user
         ---
         tags:
           - matrix
@@ -1226,10 +1253,32 @@ class ConfsAPI(MethodView):
                 properties:
                     Json:
                         type: string
-                        description:  the informations from the user  for the server in a textfile
+                        description: it is a textfile which contains informations about the user
 
         """
 		
+
+class InitAPI(MethodView):
+	def get(self):
+           """
+      	this methods initialize the manager .
+        ---
+        tags:
+          - matrix
+        responses:
+          201:
+            description:  Give the initial number
+            schema:
+                id: Action
+                type: object
+                required:
+                    - Num
+                properties:
+                    Num:
+                        type: int
+                        description: This is the initial number of the simulation
+        """
+			
 view = MatrixAPI.as_view('launchtest_Matrix')
 app.add_url_rule(
     '/launchtests<string:Barre>',
@@ -1331,11 +1380,16 @@ app.add_url_rule(
 	view_func=view14,
 	methods=["GET"],
 	endpoint="SourceIdVector")
-	
-	
+
+view15=InitAPI.as_view('init')
+app.add_url_rule(
+        '/init/',
+        view_func=view15,
+        methods=["GET"],
+        endpoint="init2")
+
 if __name__ == '__main__':
     app.run(debug=env.get('DEBUG',True),
             port=int(env.get('PORT',5000)),
             host=env.get('HOST','0.0.0.0')
 )
-
