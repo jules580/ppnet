@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  vector:
+    image: vbaer/docker-vector
+
+    volumes:
+      - /tmp/data/:/data
+    ports:
+      - "8081:8080"
+
