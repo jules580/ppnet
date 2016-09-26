@@ -135,8 +135,8 @@ def getresults3(param2):
 	with open('data.json') as json_file:
 		listTest2=json.load(json_file)
 	Name=[]
-	param1=0
-	param3=0
+	#param1=0
+	#param3=0
 	i=session['index']
 	for cle in listTest2.keys():
 		Name.append(cle)
@@ -146,14 +146,18 @@ def getresults3(param2):
 		SourceNames=DataR[testSourceNames]
 		scenarioNames=str(K)+"scenarioName"
 		Scenarios=DataR[scenarioNames]
-		if SourceNames==Name[1] and Scenarios==Scenario:
-			param1+=1
-		elif SourceNames==Name[0] and Scenarios==Scenario:
-			param3+=1
-	if SourceName==Name[1]:
-		param2=param1
-	elif SourceName==Name[0]:
-		param2=param3	
+	#	if SourceNames==Name[1] and Scenarios==Scenario:
+	#		param1+=1
+	#	elif SourceNames==Name[0] and Scenarios==Scenario:
+	#		param3+=1
+	#if SourceName==Name[1]:
+	#	param2=param1
+	#elif SourceName==Name[0]:
+	#	param2=param3
+		if Scenarios==Scenario:
+			number(SourceNames)
+	param2=getresult(SourceName)
+	init()		
 	#time.sleep(30)
 	task= celery.send_task('mytask.get', args=[Scenario,SourceName,param2], kwargs={})
 	#iden_matrix_num=session['iden_matrix_num']
