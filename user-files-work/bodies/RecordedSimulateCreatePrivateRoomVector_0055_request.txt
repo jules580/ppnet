@@ -1,0 +1,1 @@
+{"ban":100,"kick":100,"redact":50,"invite":100,"events_default":0,"state_default":100,"users_default":100,"users":{"@test01:matrix.allmende.io":100},"events":{"m.room.avatar":50,"m.room.canonical_alias":50,"m.room.history_visibility":100,"m.room.name":50,"m.room.power_levels":100}}

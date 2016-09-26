@@ -1,0 +1,4 @@
+GATLING_HOME is set to /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2
+10:23:24.713 [ERROR] i.g.c.ZincCompiler$ - /home/tai/Bureau/gatling-charts-highcharts-bundle-2.2.2/user-files/simulations/default4/RecordedSimulateloginFalse2.scala:76: not found: value test
+10:23:24.728 [ERROR] i.g.c.ZincCompiler$ -     val uri1 = test
+10:23:24.729 [ERROR] i.g.c.ZincCompiler$ -                ^
