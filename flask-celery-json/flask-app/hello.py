@@ -41,7 +41,7 @@ def twos():
 	return tab[2]
 def threes():
 	return tab[3]
-def init():
+def initialisation():
 	for i in range(0,10):
 		tab[i]=0
 
