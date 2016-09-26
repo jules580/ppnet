@@ -37,7 +37,6 @@ iden={}
 idenmatrix={}
 iden_num=0
 iden_matrix_num=0
-
 iden_connect=0
 # config your API specs
 # you can define multiple specs in the case your api has multiple versions
@@ -81,11 +80,12 @@ swagger = Swagger(app)
 
 @app.route('/add/<int:id>')
 def add(id):
-	
+	global iden_connect
 	match = geolite2.lookup(request.remote_addr)
-	if id==1:
+	if iden_connect==0:
 		file=open('newfile.json','w')
 		file.write('')
+	iden_connect=iden_connect+1
 	file= open('newfile.json','r+')
         iny= len(file.read())
         if iny==0:
