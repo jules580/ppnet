@@ -18,6 +18,7 @@ from worker import celery
 from celery.result import AsyncResult
 import celery.states as states
 import unicodedata
+from hello import *
 i=0
 k=0
 Data=["test"]
@@ -135,8 +136,9 @@ def getresults3(param2):
 	with open('data.json') as json_file:
 		listTest2=json.load(json_file)
 	Name=[]
-	#param1=0
-	#param3=0
+	param1=0
+	param3=0
+	
 	i=session['index']
 	for cle in listTest2.keys():
 		Name.append(cle)
@@ -153,11 +155,12 @@ def getresults3(param2):
 	#if SourceName==Name[1]:
 	#	param2=param1
 	#elif SourceName==Name[0]:
-	#	param2=param3
-		if Scenarios==Scenario:
+		#param2=param3
+		#if Scenarios==Scenario:
+		if Scenarios==Scenario:	
 			number(SourceNames)
 	param2=getresult(SourceName)
-	init()		
+	initialisation()		
 	#time.sleep(30)
 	task= celery.send_task('mytask.get', args=[Scenario,SourceName,param2], kwargs={})
 	#iden_matrix_num=session['iden_matrix_num']
@@ -165,10 +168,13 @@ def getresults3(param2):
 	iden_matrix_num+=1
 	#idenmatrix=session['idenmatrix']
 	#idenmatrix=getattr(g,'idenmatrix', None)
+
+	#task= celery.send_task('mytask.get', args=[Scenario,SourceName,param2],kwargs={})
+
 	idenmatrix[iden_matrix_num]=task.id
 	session['iden_matrix_num']=session['iden_matrix_num']+1
 	#session['iden_matrix_num']=iden_matrix_num
-	Task={"request_id":str(iden_matrix_num)}
+	Task={"request_id":str(iden_matrix_num),"param":param2}
 	return json.dumps(Task,sort_keys=True,indent=4)	
 @app.route('/requestResult/matrix/<int:param2>')
 def getresultsmatrix2(param2):
